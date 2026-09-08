@@ -120,6 +120,8 @@ class TestSadSausageMCPServer(unittest.TestCase):
         self.assertIn("Sad Sausage", content)
         self.assertIn("Hardware Targets", content)
         self.assertIn("USD", content)
+        self.assertIn("2012", content)
+        self.assertIn("96GB", content)
 
     def test_tool_get_verified_btc_address(self):
         """

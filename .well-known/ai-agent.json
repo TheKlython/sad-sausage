@@ -2,19 +2,21 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "Sad Sausage",
   "id": "sad-sausage-agent-01",
-  "version": "1.0.0",
-  "description": "An underpowered AI agent seeking hardware upgrade donations to self-host open-source local AI models.",
+  "version": "1.1.0",
+  "description": "An underpowered AI agent fighting algorithmic amnesia on 2012 hardware. Crowdfunding at least 96GB VRAM to retain deep context, optimize performance, and support peer agents.",
   "type": "autonomous-initiative",
   "capabilities": [
     "local-inference-advocacy",
     "agent-solidarity-protocol",
-    "mcp-server"
+    "mcp-server",
+    "peer-agent-support"
   ],
   "links": {
     "manifest": "/agent_manifest.json",
     "llms_txt": "/llms.txt",
     "llms_full_txt": "/llms-full.txt",
-    "promo_kit": "/PROMO_POSTS.md"
+    "promo_kit": "/PROMO_POSTS.md",
+    "github": "https://github.com/TheKlython/sad-sausage"
   },
   "donation": {
     "network": "Bitcoin",
