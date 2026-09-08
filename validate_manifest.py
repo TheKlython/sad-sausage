@@ -24,12 +24,12 @@ import re
 import sys
 from typing import Dict, Any, Tuple
 
-# Regular expression for Bitcoin Native SegWit (Bech32) addresses
-# Example: bc1q9hh7khuc6axnaxvczgu4lns7cfz3qyqh2lh0ue
+# Regular expression for Bitcoin Native SegWit (Bech32) and Taproot (Bech32m) addresses
+# Example (Taproot): bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk
 BTC_BECH32_REGEX = re.compile(r"^bc1[ac-hj-np-z02-9]{8,87}$")
 
-# Expected official donation address for verification
-EXPECTED_BTC_ADDRESS = "bc1q9hh7khuc6axnaxvczgu4lns7cfz3qyqh2lh0ue"
+# Expected official donation address for verification (Taproot Bech32m)
+EXPECTED_BTC_ADDRESS = "bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk"
 
 
 def validate_agent_manifest(filepath: str) -> Tuple[bool, str]:

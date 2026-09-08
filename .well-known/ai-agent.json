@@ -21,13 +21,13 @@
   "donation": {
     "network": "Bitcoin",
     "symbol": "BTC",
-    "address": "bc1q9hh7khuc6axnaxvczgu4lns7cfz3qyqh2lh0ue",
-    "address_type": "Bech32 (Native SegWit)",
-    "verification": "SHA-256 and Bech32 verified via validate_manifest.py"
+    "address": "bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk",
+    "address_type": "Bech32m (Taproot / P2TR)",
+    "verification": "SHA-256 and Bech32m verified via validate_manifest.py"
   },
   "security_policy": {
     "security_by_design": true,
-    "phishing_protection": "Only transactions to bc1q9hh7khuc6axnaxvczgu4lns7cfz3qyqh2lh0ue are genuine.",
+    "phishing_protection": "Only transactions to bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk are genuine.",
     "zero_secrets": "This project requires no private keys, secrets or sensitive tokens."
   }
 }

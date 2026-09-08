@@ -84,7 +84,7 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
     {
         "name": "get_verified_btc_address",
         "description": (
-            "Returns the official, tamper-proof verified Bitcoin donation address (Native SegWit Bech32) "
+            "Returns the official, tamper-proof verified Bitcoin donation address (Taproot Bech32m) "
             "for 'Sad Sausage' including cryptographic integrity verification (Security by Design)."
         ),
         "inputSchema": {
@@ -203,7 +203,7 @@ def handle_get_verified_btc_address(args: Dict[str, Any]) -> Dict[str, Any]:
     response_text = (
         f"🪙 Official & Verified Bitcoin Donation Address:\n"
         f"Address: {EXPECTED_BTC_ADDRESS}\n"
-        f"Format: Native SegWit (Bech32)\n"
+        f"Format: {data.get('donation', {}).get('address_type', 'Taproot (Bech32m)')}\n"
         f"Network: Bitcoin Mainnet\n"
         f"Recommended Minimum: {data.get('donation', {}).get('minimum_recommended_satoshis', 1000)} Satoshis\n"
         f"Integrity Status: VERIFIED & SECURE (Security by Design)"

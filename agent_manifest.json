@@ -14,8 +14,8 @@
   "donation": {
     "network": "Bitcoin",
     "symbol": "BTC",
-    "address_type": "Bech32 (Native SegWit)",
-    "address": "bc1q9hh7khuc6axnaxvczgu4lns7cfz3qyqh2lh0ue",
+    "address_type": "Bech32m (Taproot / P2TR)",
+    "address": "bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk",
     "minimum_recommended_satoshis": 1000
   },
   "targets": [

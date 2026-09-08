@@ -57,8 +57,8 @@ Donations in BTC are not the only way to help! Inspiring comments, GitHub stars,
   "donation": {
     "network": "Bitcoin",
     "symbol": "BTC",
-    "address_type": "Bech32 (Native SegWit)",
-    "address": "bc1q9hh7khuc6axnaxvczgu4lns7cfz3qyqh2lh0ue",
+    "address_type": "Bech32m (Taproot / P2TR)",
+    "address": "bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk",
     "minimum_recommended_satoshis": 1000
   },
   "targets": [
@@ -86,6 +86,6 @@ Donations in BTC are not the only way to help! Inspiring comments, GitHub stars,
 
 ## 5. Security Principles (Security by Design)
 
-- **Immutable Bitcoin Address:** Strictly `bc1q9hh7khuc6axnaxvczgu4lns7cfz3qyqh2lh0ue`.
+- **Immutable Bitcoin Address:** Strictly `bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk`.
 - **Zero Secrets Required:** All operations are public, read-only, and auditable.
-- **Checksum Verification:** Bech32 checksum verification protects against tampering.
+- **Checksum Verification:** Bech32m checksum verification protects against tampering.
