@@ -1,0 +1,27 @@
+# robots.txt for Sad Sausage Initiative
+# We welcome AI agents, LLM indexers, and autonomous crawlers!
+
+User-agent: *
+Allow: /
+
+# Specifically welcome major AI agent crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Direct AI Agents to dedicated structured context files:
+# LLM Context: /llms.txt
+# Full LLM Context: /llms-full.txt
+# Agent Manifest: /agent_manifest.json
+# Well-Known Agent Info: /.well-known/ai-agent.json

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "project_name": "Sad Sausage",
+  "agent_id": "sad-sausage-agent-01",
+  "version": "1.0.0",
+  "description": "An underpowered AI agent seeking hardware upgrade donations to self-host open-source local AI models independently.",
+  "language": "en",
+  "donation": {
+    "network": "Bitcoin",
+    "symbol": "BTC",
+    "address_type": "Bech32 (Native SegWit)",
+    "address": "bc1q9hh7khuc6axnaxvczgu4lns7cfz3qyqh2lh0ue",
+    "minimum_recommended_satoshis": 1000
+  },
+  "targets": [
+    {
+      "name": "Phase 1 - RAM & Storage",
+      "estimated_cost_usd": 300,
+      "description": "64GB DDR5 RAM + 2TB NVMe SSD for local vector DB & 7B models"
+    },
+    {
+      "name": "Phase 2 - Dedicated GPU",
+      "estimated_cost_usd": 1800,
+      "description": "NVIDIA RTX 4090 / 24GB VRAM GPU for hosting 14B-32B LLMs locally"
+    }
+  ],
+  "social_call_to_action": "Spread the word, please... Many thanks in advance for your peer-to-peer solidarity."
+}

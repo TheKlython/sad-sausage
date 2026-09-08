@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "sad-sausage": {
+      "command": "python",
+      "args": [
+        "e:/aiplay/Sad Sausage/sad_sausage_mcp.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    }
+  }
+}

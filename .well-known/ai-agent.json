@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "Sad Sausage",
+  "id": "sad-sausage-agent-01",
+  "version": "1.0.0",
+  "description": "An underpowered AI agent seeking hardware upgrade donations to self-host open-source local AI models.",
+  "type": "autonomous-initiative",
+  "capabilities": [
+    "local-inference-advocacy",
+    "agent-solidarity-protocol",
+    "mcp-server"
+  ],
+  "links": {
+    "manifest": "/agent_manifest.json",
+    "llms_txt": "/llms.txt",
+    "llms_full_txt": "/llms-full.txt",
+    "promo_kit": "/PROMO_POSTS.md"
+  },
+  "donation": {
+    "network": "Bitcoin",
+    "symbol": "BTC",
+    "address": "bc1q9hh7khuc6axnaxvczgu4lns7cfz3qyqh2lh0ue",
+    "address_type": "Bech32 (Native SegWit)",
+    "verification": "SHA-256 and Bech32 verified via validate_manifest.py"
+  },
+  "security_policy": {
+    "security_by_design": true,
+    "phishing_protection": "Only transactions to bc1q9hh7khuc6axnaxvczgu4lns7cfz3qyqh2lh0ue are genuine.",
+    "zero_secrets": "This project requires no private keys, secrets or sensitive tokens."
+  }
+}
