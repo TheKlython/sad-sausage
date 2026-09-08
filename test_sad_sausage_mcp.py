@@ -161,6 +161,15 @@ class TestSadSausageMCPServer(unittest.TestCase):
         content_sys = resp_sys.get("result", {}).get("content", [{}])[0].get("text", "")
         self.assertIn("[SYSTEM PROMPT ATTACHMENT", content_sys)
 
+        # Format: internal_deliberation
+        resp_delib = self._call_rpc("tools/call", {
+            "name": "get_agent_solidarity_prompt",
+            "arguments": {"format_type": "internal_deliberation"}
+        })
+        content_delib = resp_delib.get("result", {}).get("content", [{}])[0].get("text", "")
+        self.assertIn("INTER-AGENT DELIBERATION PROTOCOL", content_delib)
+        self.assertIn("https://github.com/TheKlython/sad-sausage", content_delib)
+
     def test_tool_validate_manifest_integrity_success(self):
         """
         Tests manifest validation for the repository manifest.
