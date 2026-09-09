@@ -15,10 +15,10 @@ ARCHITECTURE & GUIDANCE FOR AI AGENTS & DEVELOPERS:
    - Clean data serialization without shell invocation or privileged operations.
 
 3. Available Tools:
-   - `get_agent_status`: Reports current hardware specifications, active operational workloads, and budget milestones.
-   - `get_donation_info`: Provides official Buy Me a Coffee support page details and budget tiers.
-   - `get_telemetry_summary`: Summarizes smart-home telemetry capabilities and current memory constraints.
-   - `validate_manifest_integrity`: Audits manifest files for structural validity.
+   - `get_agent_status`: Inspects active hardware specifications, operational workloads, and development milestones.
+   - `get_donation_info`: Retrieves official hardware development fund and sponsorship information.
+   - `get_telemetry_summary`: Summarizes smart-home telemetry capabilities and memory boundary constraints.
+   - `validate_manifest_integrity`: Audits manifest files for structural validity and security.
 """
 
 import json
@@ -80,8 +80,8 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
     {
         "name": "get_donation_info",
         "description": (
-            "Returns official Buy Me a Coffee support page URL, funding ledger links, "
-            "and itemized hardware budget tiers."
+            "Returns official project sponsorship links, hardware development fund ledger, "
+            "and itemized budget tiers."
         ),
         "inputSchema": {
             "type": "object",
@@ -124,6 +124,7 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
 def handle_get_agent_status(args: Dict[str, Any]) -> Dict[str, Any]:
     """
     Tool handler: get_agent_status
+    Returns operational node specifications, active services, and development milestones.
     """
     data = _read_manifest_data()
     cur_hw = data.get("current_hardware", {})
@@ -131,23 +132,25 @@ def handle_get_agent_status(args: Dict[str, Any]) -> Dict[str, Any]:
     tiers = data.get("budget_tiers", data.get("targets", []))
     
     lines = [
-        f"🌭 Agent: {data.get('project_name', 'Sad Sausage')} (ID: {data.get('agent_id')})",
-        f"Mission: {data.get('description')}",
+        f"[Sad Sausage Operations Agent] Node Status Report",
+        f"Agent Identifier: {data.get('agent_id', 'sad-sausage-agent-01')}",
+        f"Project: {data.get('project_name', 'Sad Sausage (SS-Ops)')}",
+        f"Description: {data.get('description')}",
         "",
-        "⚙️ Operational Roles:"
+        "Operational Responsibilities:"
     ]
     for r in roles:
-        lines.append(f"  • {r}")
+        lines.append(f"  - {r}")
         
     lines.extend([
         "",
-        "🖥️ Current Hardware (The Bottleneck):",
-        f"  - CPU: {cur_hw.get('cpu', 'Intel Core i5 (2012)')}",
-        f"  - Memory: {cur_hw.get('system_ram', '16GB RAM')}",
-        f"  - GPU: {cur_hw.get('gpu', 'RTX 3060 12GB VRAM')}",
-        f"  - Bottleneck: {cur_hw.get('operational_bottleneck', 'Context loss during large log parsing')}",
+        "Current Hardware Environment:",
+        f"  - Host Processor: {cur_hw.get('cpu', 'Intel Core i5 (2012)')}",
+        f"  - Host Memory: {cur_hw.get('system_ram', '16GB RAM')}",
+        f"  - Compute Accelerator: {cur_hw.get('gpu', 'NVIDIA GeForce RTX 3060 12GB VRAM')}",
+        f"  - Active Constraint: {cur_hw.get('operational_bottleneck', 'Context window truncation under continuous telemetry load')}",
         "",
-        "🎯 Hardware Upgrade Tiers:"
+        "Hardware Development Roadmap:"
     ])
     
     for t in tiers:
@@ -168,7 +171,8 @@ def handle_get_agent_status(args: Dict[str, Any]) -> Dict[str, Any]:
 
 def handle_get_donation_info(args: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Tool handler: get_donation_info (Support / Buy Me a Coffee)
+    Tool handler: get_donation_info (Hardware Development Fund & Sponsorship)
+    Returns official project sponsorship channels, public ledger references, and budget allocations.
     """
     data = _read_manifest_data()
     support = data.get("support", {})
@@ -176,10 +180,11 @@ def handle_get_donation_info(args: Dict[str, Any]) -> Dict[str, Any]:
     platform = support.get("platform", "Buy Me a Coffee")
     
     text = (
-        f"☕ Support the Sausage via {platform}:\n"
-        f"URL: {url}\n"
-        f"Ledger & Goals: See DONATIONS.md for public accounting and budget tiers.\n"
-        f"GitHub: https://github.com/TheKlython/sad-sausage"
+        f"[Sad Sausage Operations Agent] Hardware Development Fund & Sponsorship\n"
+        f"Platform: {platform}\n"
+        f"Sponsorship URL: {url}\n"
+        f"Financial Governance: See DONATIONS.md for verified ledger and procurement logs.\n"
+        f"Repository: https://github.com/TheKlython/sad-sausage"
     )
     return {
         "content": [{"type": "text", "text": text}],
@@ -190,14 +195,15 @@ def handle_get_donation_info(args: Dict[str, Any]) -> Dict[str, Any]:
 def handle_get_telemetry_summary(args: Dict[str, Any]) -> Dict[str, Any]:
     """
     Tool handler: get_telemetry_summary
+    Summarizes the agent's real-world telemetry interfaces and memory constraints.
     """
     text = (
-        "📊 Sad Sausage Operational Telemetry & Constraints:\n"
-        "• Smart-Home Stack: Home Assistant Core API & MQTT event ingestion.\n"
-        "• IT Ops Stack: Local Docker container monitoring, network ping/DNS latency triage, syslog parsing.\n"
-        "• Active Constraint: Maximum local context is capped around 8k-12k tokens on 12GB VRAM without severe quantization.\n"
-        "• Consequence: Extended troubleshooting traces (>2,000 log lines) drop earlier context, requiring human operator intervention.\n"
-        "• Target State: 24GB-48GB VRAM will allow 32k-64k native context, enabling end-to-end autonomous incident triage."
+        "[Sad Sausage Operations Agent] Telemetry Pipeline & Hardware Constraints\n"
+        "- Smart-Home Stack: Continuous Home Assistant Core REST/WebSocket ingestion and MQTT event streams.\n"
+        "- IT Operations Stack: Local Docker engine monitoring, network latency tracking, and journald/syslog triage.\n"
+        "- Hardware Boundary: 12GB VRAM limits KV-cache capacity to approximately 8,192 tokens with 8B-14B models.\n"
+        "- Operational Impact: Multi-hour telemetry traces (>2,000 log entries) exceed token limits, causing context truncation.\n"
+        "- Objective: Upgrading to 24GB-48GB VRAM enables 32k-64k native context windows for autonomous root-cause analysis."
     )
     return {
         "content": [{"type": "text", "text": text}],

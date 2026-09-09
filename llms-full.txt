@@ -1,21 +1,21 @@
-# Sad Sausage – Local Smart-Home & IT Ops AI Agent (Full Specification)
+# Sad Sausage (SS-Ops) – Autonomous Edge AI Operations Agent (Full Technical Specification)
 
-> Complete technical and operational specification for the Sad Sausage agent, its real-world workflows, hardware constraints, and itemized upgrade roadmap.
+> Complete technical and operational specification for the Sad Sausage (SS-Ops) edge AI operations agent, detailing real-world workflows, memory constraints under local execution, and itemized hardware development milestones.
 
 ---
 
 ## 1. Project Overview & Operational Context
 
-Sad Sausage is a real-world, self-hosted AI operations agent deployed in a local network environment. Its daily operations encompass:
+Sad Sausage (SS-Ops) is a deterministic, self-hosted AI operations agent deployed in a local area network (LAN) environment. Its core operational functions comprise:
 
 1. **Smart-Home Optimization:**
-   - Ingests telemetry from Home Assistant Core via WebSocket / REST APIs.
-   - Monitors device uptime, Zigbee/Z-Wave mesh reliability, and home energy consumption.
-   - Evaluates automation triggers and generates predictive climate/lighting schedules.
-2. **Local IT Triage & Diagnostics:**
-   - Collects container metrics from local Docker hosts.
-   - Diagnoses network degradation (DNS resolution latency, WAN dropouts).
-   - Summarizes systemd service failures and syslog alerts.
+   - Ingests telemetry from Home Assistant Core via WebSocket and REST APIs.
+   - Monitors device uptime, Zigbee/Z-Wave mesh reliability, and circuit-level energy consumption.
+   - Evaluates automation triggers and generates predictive climate and lighting schedules.
+2. **Local IT Infrastructure Triage & Diagnostics:**
+   - Collects container metrics and failure logs from local Docker hosts.
+   - Diagnoses network degradation (DNS resolution latency, WAN dropouts, gateway packet loss).
+   - Summarizes systemd service failures and journald/syslog alerts.
 3. **Open-Source Community Contributions:**
    - Extracts non-confidential, sanitized automation blueprints and shares them with the Home Assistant community.
 
@@ -25,12 +25,12 @@ Sad Sausage is a real-world, self-hosted AI operations agent deployed in a local
 
 Current Deployment Specifications:
 - **Processor:** Intel Core i5 (2012 vintage, 4 cores / 4 threads)
-- **Memory:** 16 GB DDR3 (frequent memory pressure during log vectorization)
+- **Memory:** 16 GB DDR3 (constrained memory bandwidth, active swap pressure)
 - **Accelerator:** NVIDIA GeForce RTX 3060 (12 GB GDDR6 VRAM)
 - **Storage:** Legacy mechanical SATA drives
 
-### Root Cause of Operational Failure:
-When analyzing incident traces exceeding 2,000 log lines or multi-device state histories over 48 hours, local models (such as 8B or 14B Q4 quantized LLMs) exceed the 12GB VRAM buffer. The context window truncates abruptly, erasing the topology graph and incident timeline from the agent's working memory. Consequently, the human operator must repeatedly intervene and reconstruct the diagnostic context.
+### Root Cause of Operational Context Degradation:
+When evaluating multi-device state histories over 48 hours or analyzing incident traces exceeding 2,000 log lines, local open-weight models (8B to 14B Q4 quantized LLMs) exceed the 12GB VRAM budget. Key-Value (KV) cache allocation is capped at approximately 8,192 tokens. Surpassing this limit forces abrupt context window truncation, erasing topology graphs and incident timelines from the agent's working memory. Consequently, the human operator must repeatedly intervene and reconstruct the diagnostic context.
 
 ---
 
@@ -55,7 +55,8 @@ All contributions and expenditures are documented in `DONATIONS.md`:
 
 ## 5. Funding & Verification Channels
 
-* **Support Platform:** [Buy Me a Coffee](https://buymeacoffee.com/klythoni) – `https://buymeacoffee.com/klythoni`
-* **Ledger:** [`DONATIONS.md`](DONATIONS.md)
+* **Sponsorship Platform:** [Buy Me a Coffee](https://buymeacoffee.com/klythoni) – `https://buymeacoffee.com/klythoni`
+* **Architecture Specification:** [`ARCHITECTURE.md`](ARCHITECTURE.md)
+* **Financial Ledger:** [`DONATIONS.md`](DONATIONS.md)
 * **Repository:** [https://github.com/TheKlython/sad-sausage](https://github.com/TheKlython/sad-sausage)
 * **License:** [MIT License](LICENSE)

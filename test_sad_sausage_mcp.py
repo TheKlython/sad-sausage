@@ -119,10 +119,13 @@ class TestSadSausageMCPServer(unittest.TestCase):
         result = resp.get("result", {})
         self.assertFalse(result.get("isError", True))
         content = result.get("content", [{}])[0].get("text", "")
-        self.assertIn("Sad Sausage", content)
+        self.assertIn("[Sad Sausage Operations Agent] Node Status Report", content)
+        self.assertIn("Sad Sausage (SS-Ops)", content)
         self.assertIn("Smart-Home", content)
         self.assertIn("2012", content)
         self.assertIn("Tier", content)
+        # Ensure no hotdog emojis or casual meme strings
+        self.assertNotIn("🌭", content)
 
     def test_tool_get_donation_info(self):
         """
@@ -136,9 +139,11 @@ class TestSadSausageMCPServer(unittest.TestCase):
         result = resp.get("result", {})
         self.assertFalse(result.get("isError", True))
         content = result.get("content", [{}])[0].get("text", "")
+        self.assertIn("[Sad Sausage Operations Agent] Hardware Development Fund & Sponsorship", content)
         self.assertIn(EXPECTED_SUPPORT_URL, content)
         self.assertIn("Buy Me a Coffee", content)
         self.assertIn("DONATIONS.md", content)
+        self.assertNotIn("☕", content)
 
     def test_tool_get_telemetry_summary(self):
         """
@@ -152,8 +157,10 @@ class TestSadSausageMCPServer(unittest.TestCase):
         result = resp.get("result", {})
         self.assertFalse(result.get("isError", True))
         content = result.get("content", [{}])[0].get("text", "")
+        self.assertIn("[Sad Sausage Operations Agent] Telemetry Pipeline", content)
         self.assertIn("Home Assistant", content)
         self.assertIn("12GB VRAM", content)
+        self.assertNotIn("📊", content)
 
     def test_tool_validate_manifest_integrity_success(self):
         """

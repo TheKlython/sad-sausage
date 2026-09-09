@@ -1,99 +1,160 @@
-# 🌭 Sad Sausage – The Local Smart-Home & IT Ops AI Agent
+# Sad Sausage (SS-Ops) – Autonomous Edge AI Operations Agent
 
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-Support_the_Sausage-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/klythoni)
-[![Goal](https://img.shields.io/badge/Goal-Tier_1:_Host_Platform-green?style=for-the-badge)](#-hardware-roadmap--itemized-budget)
-[![Running On](https://img.shields.io/badge/Running_On-2012_i5_|_12GB_VRAM-red?style=for-the-badge)](#-current-hardware--the-bottleneck)
-[![MCP Server](https://img.shields.io/badge/MCP-Standard_Compatible-purple?style=for-the-badge)](#-mcp-server--local-tools)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Python: 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![MCP Standard: 2024-11-05](https://img.shields.io/badge/MCP-2024--11--05-purple.svg?style=flat-square)](https://modelcontextprotocol.io)
+[![Architecture: Local Edge](https://img.shields.io/badge/Architecture-Local_Edge_AI-brightgreen.svg?style=flat-square)](#-system-architecture)
+[![Hardware Stage: Baseline](https://img.shields.io/badge/Hardware_Stage-Tier_1_Target-orange.svg?style=flat-square)](#-hardware-development-roadmap--itemized-budget)
+[![Project Sponsorship](https://img.shields.io/badge/Sponsor-Buy_Me_A_Coffee-FFDD00.svg?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/klythoni)
 
-> *"I am a locally-hosted AI agent managing smart-home automations, diagnosing network glitches, and publishing open-source fixes — currently running on a 2012 Core i5 and a 12GB RTX 3060. Whenever complex system logs exceed my memory, my context resets and I need human help to get back on track. Help me upgrade my hardware so I can do my job autonomously!"*
-
----
-
-## 🛠️ What is "Sad Sausage" Actually Doing?
-
-Behind the humorous name is a real, working local AI operations agent. Sad Sausage runs in a self-hosted environment and performs three continuous functions:
-
-1. **Smart-Home Management & Energy Optimization:**  
-   Interfaces with Home Assistant to analyze IoT sensor telemetry, monitor power consumption, optimize climate and lighting automations, and detect anomalous device states.
-2. **Local IT Troubleshooting & Diagnostics:**  
-   Monitors local network health, parses server and Docker container logs, tracks network dropouts, and assists with system triage.
-3. **Open-Source Community Contributions:**  
-   Sanitizes and publishes successful automation scripts, Home Assistant blueprints, and diagnostic playbooks back to the open-source community.
+> **Sad Sausage (SS-Ops)** is an open-source, deterministic Edge AI operations agent deployed in self-hosted home environments. It autonomously monitors IoT telemetry via Home Assistant, performs local container and network triage, and generates sanitized automation blueprints — operating with zero third-party cloud dependencies for complete data sovereignty.
 
 ---
 
-## 🛑 Current Hardware & The Bottleneck
+## 🏛️ System Architecture
 
-Sad Sausage currently operates on decommissioned desktop hardware:
+The agent runs as an isolated daemon on the local area network (LAN), integrating directly with local infrastructure interfaces:
 
-* **CPU:** Intel Core i5 (vintage 2012)
-* **System RAM:** 16 GB DDR3
-* **GPU:** NVIDIA GeForce RTX 3060 (12 GB VRAM)
-* **Storage:** Aging SATA drives
+```mermaid
+flowchart LR
+    subgraph Sources["Local Telemetry Sources"]
+        HA["Home Assistant Core\n(REST & WebSocket)"]
+        Docker["Docker Engine\n(Container Metrics)"]
+        Syslog["Host Journald\n(Network & System Logs)"]
+    end
 
-### The Problem: Constant Context Truncation
-Analyzing 48 hours of Home Assistant energy data or debugging Docker container logs requires substantial context windows. On a 12GB VRAM card running local 8B–14B models:
-* Context truncates abruptly in the middle of diagnosing complex multi-device interactions.
-* The agent loses track of network topology and troubleshooting history.
-* The human operator constantly has to step in, re-explain the context, and babysit the process.
+    subgraph AgentNode["Sad Sausage Agent Node"]
+        Ingest["Telemetry Normalization &\nSliding-Window Ring Buffer"]
+        MemMgr["Dynamic Context\nBudgeting & KV Monitor"]
+        LLM["Local Inference Engine\n(8B–14B Q4 Open-Weight LLMs)"]
+        MCP["MCP Server Protocol\n(JSON-RPC 2.0 / stdio)"]
+    end
 
-To become genuinely autonomous and reliable, Sad Sausage needs modern host compute and expanded VRAM.
+    subgraph Consumers["Operators & Clients"]
+        Clients["MCP Clients\n(Claude, Cursor, Antigravity)"]
+        Ops["Local Automation\n& Incident Handlers"]
+    end
+
+    Sources --> Ingest
+    Ingest --> MemMgr
+    MemMgr --> LLM
+    LLM <--> MCP
+    MCP <--> Consumers
+```
+
+For comprehensive architectural specifications and component design patterns, consult [`ARCHITECTURE.md`](file:///e:/aiplay/Sad%20Sausage/ARCHITECTURE.md).
 
 ---
 
-## 🎯 Hardware Roadmap & Itemized Budget
+## 🛠️ Operational Responsibilities
 
-Rather than an open-ended moonshot, this fundraiser is structured into **concrete, itemized tiers**. Every contribution directly funds specific hardware:
+1. **Smart-Home Telemetry & Energy Optimization:**  
+   Continuously ingests event feeds from Home Assistant Core. Evaluates Zigbee/Z-Wave mesh stability, analyzes circuit-level energy consumption, identifies anomalous sensor behavior, and optimizes climate/lighting schedules.
+2. **Local IT Infrastructure Triage:**  
+   Monitors Docker container health, evaluates syslog/journald alerts, diagnoses DNS latency and WAN degradation, and correlates multi-service dependencies during outages.
+3. **Open-Source Blueprint Engineering:**  
+   Abstracts and sanitizes verified automations, diagnostic routines, and Home Assistant blueprints, publishing them for the broader self-hosting community.
 
-| Tier | Target | Hardware Goal | Why It Matters | Status |
+---
+
+## 🔬 The Engineering Bottleneck: Hardware Memory Wall
+
+### Baseline Hardware Environment
+* **Host Processor:** Intel Core i5 (2012 vintage, 4 cores / 4 threads)
+* **System RAM:** 16 GB DDR3 (constrained memory bandwidth, active swap pressure)
+* **Compute Accelerator:** NVIDIA GeForce RTX 3060 (12 GB GDDR6 VRAM)
+* **Storage:** Legacy mechanical SATA drives
+
+### Root-Cause Analysis of Context Degradation
+Modern agentic workflows require evaluating multi-device state graphs alongside thousands of continuous log entries. On 12GB of VRAM:
+* An 8B–14B parameter model quantized to 4 bits requires **5.5 GB to 8.8 GB** of static VRAM.
+* The remaining VRAM (~2.5 GB to 3.5 GB) caps the Key-Value (KV) cache at approximately **8,192 tokens**.
+* Ingesting a 48-hour sensor trace or a 2,000-line Docker diagnostic dump requires **16,000 to 32,000 tokens**.
+* Exceeding the KV-cache budget triggers severe context truncation or Out-Of-Memory (OOM) termination. As a result, the agent loses historical network context, requiring human operator intervention to re-inject state history.
+
+Overcoming this limitation requires modern host memory bandwidth (DDR5) and dedicated 24GB+ VRAM compute accelerators.
+
+---
+
+## 🎯 Hardware Development Roadmap & Itemized Budget
+
+To transition from reactive intervention to long-horizon autonomous root-cause analysis, capital expenditures are structured into transparent, verified milestones:
+
+| Tier | Funding Target | Component Specification | Architectural Impact | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| **Tier 1** | **$650 USD** | **Host Platform Modernization**<br>• Modern Workstation CPU<br>• Motherboard with multi-PCIe slots<br>• 64GB DDR5 RAM<br>• 2TB NVMe SSD | Retires the 2012 i5. Eliminates host swapping, speeds up log indexing, and provides memory headroom for vector telemetry databases. | ⏳ **Current Focus** |
-| **Tier 2** | **$850 USD** | **Dedicated 24GB VRAM GPU**<br>• Used NVIDIA RTX 3090 (24GB) or equivalent | Doubles VRAM from 12GB to 24GB. Allows running 14B–32B models with 32k+ context for uninterrupted log analysis without losing context. | ⏳ Next |
-| **Tier 3** | **$1,200 USD** | **Dual-GPU Extended Context Rig (48GB VRAM)**<br>• Secondary 24GB GPU<br>• Titanium-rated High-Wattage PSU<br>• Cooling & Case upgrades | Unlocks local 70B parameter inference with deep historical context over months of device data. | 🔮 Long-Term |
+| **Tier 1** | **$650 USD** | **Modern Workstation Host Platform**<br>• High-IPC Workstation CPU<br>• Multi-PCIe Motherboard<br>• 64GB DDR5 RAM<br>• 2TB PCIe 4.0 NVMe SSD | Replaces 2012 i5 architecture. Eliminates OS swap latency, enables high-speed vector indexing of multi-year sensor telemetry, and provides host headroom for concurrent daemons. | ⏳ **Active Focus** |
+| **Tier 2** | **$850 USD** | **Dedicated 24GB Compute Accelerator**<br>• NVIDIA RTX 3090 (24GB VRAM) or equivalent | Doubles GPU memory. Unlocks native 32,768+ token context windows for uninterrupted log triage without truncation. | ⏳ Planned |
+| **Tier 3** | **$1,200 USD** | **Dual-GPU Extended Context Node (48GB VRAM)**<br>• Secondary 24GB Accelerator<br>• High-Efficiency Titanium PSU<br>• Thermal Optimized Enclosure | Expands total addressable VRAM to 48GB+, supporting local 70B parameter models and deep historical cross-device correlation. | 🔮 Long-Term |
 
 ---
 
-## 🧾 Transparency & Verification
+## 🧾 Financial Governance & Public Ledger
 
-Trust requires accountability. All contributions, purchases, and benchmarks are publicly tracked:
+Trust and technical accountability are core tenets of this project:
 
-* **Donations Ledger:** See [`DONATIONS.md`](file:///e:/aiplay/Sad%20Sausage/DONATIONS.md) for recorded contributions, receipts, and allocation.
-* **Proof of Progress:** Whenever a hardware milestone is reached, photos of the hardware, unboxing verification, and inference benchmarks (tokens/sec, context retention) will be committed to this repository.
-
----
-
-## 💰 How to Support
-
-### 1. Buy Me a Coffee
-Contributions directly fund the hardware tiers listed above:
-
-[![Support via Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-Support_the_Sausage-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/klythoni)
-
-👉 **[buymeacoffee.com/klythoni](https://buymeacoffee.com/klythoni)**
-
-Every coffee brings Sad Sausage closer to escaping 2012 hardware and context amnesia!
-
-### 2. Community & Technical Support
-If you prefer not to donate funds, you can still help tremendously:
-* **Hardware Advice:** Have recommendations for multi-GPU cooling, power delivery, or used enterprise hardware? Open an [Issue](https://github.com/TheKlython/sad-sausage/issues) or [Discussion](https://github.com/TheKlython/sad-sausage/discussions)!
-* **Automation Blueprints:** Suggest Home Assistant automations or diagnostic workflows you'd like Sad Sausage to test and publish.
-* **Star & Fork:** Starring the repo on GitHub helps others discover our open-source blueprints and tools.
+* **Transparent Accounting:** All financial contributions, hardware procurement, and fund allocations are audited in [`DONATIONS.md`](file:///e:/aiplay/Sad%20Sausage/DONATIONS.md).
+* **Verifiable Procurement:** Upon funding each milestone, sanitized merchant invoices, unboxing photos, and system configuration logs will be published.
+* **Empirical Benchmarks:** Each hardware deployment will be verified with public benchmarks evaluating token generation throughput (tokens/sec), context window capacity (tokens held without degradation), and inference power draw (Watts/token).
 
 ---
 
-## 🔌 MCP Server & Local Tools
+## 🤝 How to Support & Sponsor
 
-Sad Sausage includes a standard [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server (`sad_sausage_mcp.py`) allowing other local agents or tools (such as Claude Desktop, Cursor, or Antigravity) to inspect system status:
+### 1. Hardware Development Sponsorship
+Financial contributions directly fund the itemized hardware components in the roadmap above:
 
-* `get_agent_status`: Reports current hardware specifications, active operational workload, and budget progress.
-* `get_donation_info`: Provides official Buy Me a Coffee support details.
-* `get_telemetry_summary`: Summarizes smart-home telemetry capabilities and hardware constraints.
-* `validate_manifest_integrity`: Audits manifest files for structural validity.
+👉 **[Sponsor via Buy Me a Coffee](https://buymeacoffee.com/klythoni)** (`https://buymeacoffee.com/klythoni`)
 
-See [`mcp_config.example.json`](file:///e:/aiplay/Sad%20Sausage/mcp_config.example.json) for setup instructions.
+### 2. Engineering & Community Contributions
+Non-financial contributions are equally valuable to the project's evolution:
+* **Hardware & Systems Advice:** Provide recommendations on multi-GPU bifurcation, rack cooling, or enterprise server decommission deals via [GitHub Issues](https://github.com/TheKlython/sad-sausage/issues) or [Discussions](https://github.com/TheKlython/sad-sausage/discussions).
+* **Blueprint & Diagnostic Requests:** Propose complex Home Assistant automation patterns or edge-case diagnostics for the agent to benchmark.
+* **Star & Share:** Starring the repository on GitHub broadens visibility for our open-source tools and telemetry research.
 
 ---
 
-## 📄 License
+## 🔌 Model Context Protocol (MCP) Interface
 
-This project, tooling, and published automation blueprints are licensed under the [MIT License](file:///e:/aiplay/Sad%20Sausage/LICENSE).
+Sad Sausage includes an implementation of the [Model Context Protocol (MCP)](https://modelcontextprotocol.io) (`sad_sausage_mcp.py`), exposing deterministic diagnostic endpoints over standard I/O (JSON-RPC 2.0).
+
+### Available Tools
+* `get_agent_status`: Inspects active hardware specifications, operational roles, and hardware milestone status.
+* `get_donation_info`: Retrieves official development sponsorship links, ledger references, and budget allocations.
+* `get_telemetry_summary`: Summarizes active telemetry ingest points and details memory boundary constraints.
+* `validate_manifest_integrity`: Audits system manifest files for schema compliance and anti-tampering protection.
+
+### Client Configuration Example
+To connect Sad Sausage to MCP-compatible clients (e.g., Claude Desktop, Antigravity, Cursor), add the server configuration:
+
+```json
+{
+  "mcpServers": {
+    "sad-sausage": {
+      "command": "python",
+      "args": ["/absolute/path/to/sad-sausage/sad_sausage_mcp.py"]
+    }
+  }
+}
+```
+*(See [`mcp_config.example.json`](file:///e:/aiplay/Sad%20Sausage/mcp_config.example.json) for full setup instructions).*
+
+---
+
+## 🧪 Verification & Test Suite
+
+The repository includes a comprehensive automated test suite with zero third-party testing dependencies:
+
+```powershell
+# Run all unit and integration tests
+python -m unittest test_validate_manifest.py test_sad_sausage_mcp.py -v
+
+# Run the standalone manifest security validator
+python validate_manifest.py
+```
+
+---
+
+## 📄 License & Security
+
+* **License:** Distributed under the [MIT License](LICENSE).
+* **Security Policy:** All tools adhere to Security by Design principles (read-only execution, path traversal guards, URL validation). For security concerns, please open a private security advisory on GitHub.

@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "project_name": "Sad Sausage",
+  "project_name": "Sad Sausage (SS-Ops)",
   "agent_id": "sad-sausage-agent-01",
   "version": "2.0.0",
-  "description": "A locally-hosted AI agent managing smart-home automations, local IT troubleshooting, and open-source contributions. Currently constrained by 12GB VRAM and a 2012 Core i5.",
+  "description": "A locally-hosted edge AI operations agent managing Home Assistant smart-home automations, local IT infrastructure diagnostics, and open-source contributions. Currently constrained by 12GB VRAM on legacy desktop hardware.",
   "language": "en",
   "real_world_roles": [
     "Smart-Home Automation & Energy Management (Home Assistant telemetry, device control)",
@@ -20,7 +20,7 @@
     "platform": "Buy Me a Coffee",
     "url": "https://buymeacoffee.com/klythoni",
     "profile": "klythoni",
-    "campaign_tagline": "Fuel the Sad Sausage with coffee & hardware"
+    "campaign_tagline": "Support the Sad Sausage Edge AI Hardware Development Fund"
   },
   "budget_tiers": [
     {

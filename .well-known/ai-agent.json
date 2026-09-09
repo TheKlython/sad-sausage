@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "name": "Sad Sausage",
+  "name": "Sad Sausage (SS-Ops)",
   "id": "sad-sausage-agent-01",
   "version": "2.0.0",
-  "description": "A locally-hosted AI agent managing smart-home automations and local IT troubleshooting. Seeking hardware upgrades to overcome 12GB VRAM limits.",
+  "description": "A locally-hosted edge AI operations agent managing smart-home automations and local IT infrastructure diagnostics. Benchmarking edge hardware constraints under continuous telemetry workloads.",
   "type": "autonomous-operations-agent",
   "capabilities": [
     "smart-home-optimization",

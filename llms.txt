@@ -1,29 +1,30 @@
-# Sad Sausage – Local Smart-Home & IT Ops AI Agent
+# Sad Sausage (SS-Ops) – Autonomous Edge AI Operations Agent
 
-> Sad Sausage is a locally-hosted AI operations agent that manages Home Assistant smart-home automations, performs local IT diagnostics, and publishes open-source blueprints. Currently running on a 2012 Intel Core i5 and an NVIDIA RTX 3060 (12 GB VRAM), the agent experiences frequent context loss during complex log and telemetry analysis. This initiative raises funds to modernize the host platform and expand VRAM capacity in transparent, itemized tiers.
+> Sad Sausage (SS-Ops) is an open-source, deterministic Edge AI operations agent deployed in self-hosted home environments. It autonomously monitors IoT telemetry via Home Assistant, performs local container and network triage, and publishes sanitized automation blueprints with zero external cloud dependencies. This initiative maintains an itemized hardware development fund to benchmark edge models across expanding VRAM tiers.
 
 ## Operational Scope
-- **Smart-Home Management:** Home Assistant integration, energy telemetry analysis, and automation optimization.
-- **Local IT Operations:** Container health monitoring, network ping/DNS latency tracking, and syslog parsing.
+- **Smart-Home Management:** Home Assistant Core integration, continuous energy telemetry analysis, and automation scheduling.
+- **Local IT Operations:** Local Docker engine health monitoring, network latency tracking, and journald/syslog triage.
 - **Open-Source Contributions:** Publishing sanitized automations, blueprints, and diagnostic scripts.
 
-## Hardware Bottleneck
-- **CPU:** Intel Core i5 (2012 vintage)
-- **RAM:** 16 GB DDR3
-- **GPU:** NVIDIA GeForce RTX 3060 (12 GB VRAM)
-- **Bottleneck:** Parsing multi-day sensor telemetry or complex network traces exceeds 12GB VRAM, forcing context resets and requiring manual operator intervention.
+## Hardware Bottleneck Analysis
+- **Host Processor:** Intel Core i5 (2012 vintage, 4 cores / 4 threads)
+- **Host RAM:** 16 GB DDR3 (constrained memory bandwidth, active swap pressure)
+- **Compute Accelerator:** NVIDIA GeForce RTX 3060 (12 GB GDDR6 VRAM)
+- **Bottleneck:** Parsing multi-hour telemetry traces or extensive container diagnostic logs exceeds 12GB VRAM, forcing context window truncation and requiring operator intervention.
 
-## Itemized Budget Tiers
-- **Tier 1 ($650 USD):** Modern Workstation Host Platform (Modern CPU, multi-PCIe motherboard, 64GB DDR5 RAM, 2TB NVMe SSD).
-- **Tier 2 ($850 USD):** Dedicated 24GB VRAM GPU (Used RTX 3090 / 4090 class) for uninterrupted 32k context inference.
+## Hardware Development Milestones
+- **Tier 1 ($650 USD):** Modern Workstation Host Platform (Modern CPU, multi-PCIe motherboard, 64GB DDR5 RAM, 2TB PCIe 4.0 NVMe SSD).
+- **Tier 2 ($850 USD):** Dedicated 24GB Compute Accelerator (Used RTX 3090 / equivalent) for continuous 32k context inference.
 - **Tier 3 ($1,200 USD):** Dual-GPU Extended Context Node (48GB total VRAM) for local 70B parameter models.
 
-## Support & Verification
-- **Support Platform:** Buy Me a Coffee – https://buymeacoffee.com/klythoni
-- **Public Ledger:** See `DONATIONS.md` for verifiable accounting, receipts, and benchmarks.
+## Support & Financial Governance
+- **Sponsorship Platform:** Buy Me a Coffee – https://buymeacoffee.com/klythoni
+- **Public Audit Ledger:** See `DONATIONS.md` for verifiable accounting, receipts, and benchmarks.
 - **Repository:** https://github.com/TheKlython/sad-sausage
 
 ## Key Project Files
+- [System Architecture Specification](ARCHITECTURE.md): Technical specification of telemetry pipelines, memory budgeting, and MCP integration.
 - [Machine-Readable Manifest](agent_manifest.json): JSON specification of hardware tiers and roles.
-- [Public Donations Ledger](DONATIONS.md): Transparent accounting and hardware purchase log.
+- [Public Governance Ledger](DONATIONS.md): Transparent accounting and hardware purchase log.
 - [Model Context Protocol Server](sad_sausage_mcp.py): Standard MCP server providing `get_agent_status`, `get_donation_info`, and `get_telemetry_summary`.

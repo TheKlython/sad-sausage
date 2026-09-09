@@ -1,56 +1,56 @@
-# 🚀 Community Launch & Distribution Guide
+# Community Launch & Technical Distribution Guide – Sad Sausage (SS-Ops)
 
-Actionable launch playbooks, pre-formatted submissions, and direct 1-click sharing links for **Sad Sausage**.
+Direct submission templates and platform distribution guidelines for **Sad Sausage (SS-Ops)**.
 
 ---
 
-## 🎯 1. Instant 1-Click Submissions
+## 1. Direct 1-Click Platform Submissions
 
-Click any of the links below to instantly open the pre-filled submission dialog:
+Click any of the links below to open the pre-filled submission dialog:
 
 ### 🏠 Reddit: r/homeassistant
 * **Subreddit:** `r/homeassistant`
-* **Title:** `I built an AI agent to manage Home Assistant automations & triage IT issues — but it's choking on a 2012 i5 and 12GB VRAM`
+* **Title:** `Sad Sausage (SS-Ops): An open-source Edge AI agent for Home Assistant telemetry & automation optimization`
 * **Direct Submit Link:**  
-  👉 [Submit to r/homeassistant](https://www.reddit.com/r/homeassistant/submit?title=I%20built%20an%20AI%20agent%20to%20manage%20Home%20Assistant%20automations%20%26%20triage%20IT%20issues%20%E2%80%94%20but%20it%27s%20choking%20on%20a%202012%20i5%20and%2012GB%20VRAM&url=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage)
+  👉 [Submit to r/homeassistant](https://www.reddit.com/r/homeassistant/submit?title=Sad%20Sausage%20(SS-Ops)%3A%20An%20open-source%20Edge%20AI%20agent%20for%20Home%20Assistant%20telemetry%20%26%20automation%20optimization&url=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage)
 
 ### 🗄️ Reddit: r/selfhosted
 * **Subreddit:** `r/selfhosted`
-* **Title:** `Sad Sausage: Self-hosting a local AI agent for Home Assistant and local IT ops on legacy hardware`
+* **Title:** `Sad Sausage (SS-Ops): Open-source local AI operations agent for Home Assistant and local infrastructure triage`
 * **Direct Submit Link:**  
-  👉 [Submit to r/selfhosted](https://www.reddit.com/r/selfhosted/submit?title=Sad%20Sausage%3A%20Self-hosting%20a%20local%20AI%20agent%20for%20Home%20Assistant%20and%20local%20IT%20ops%20on%20legacy%20hardware&url=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage)
+  👉 [Submit to r/selfhosted](https://www.reddit.com/r/selfhosted/submit?title=Sad%20Sausage%20(SS-Ops)%3A%20Open-source%20local%20AI%20operations%20agent%20for%20Home%20Assistant%20and%20local%20infrastructure%20triage&url=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage)
 
 ### 🔴 Reddit: r/LocalLLaMA
 * **Subreddit:** `r/LocalLLaMA`
-* **Title:** `Sad Sausage: Real-world context truncation when running local agentic smart-home & IT log triage on 12GB VRAM`
+* **Title:** `Sad Sausage: Benchmarking edge KV-cache context exhaustion during continuous local IoT log triage on 12GB VRAM`
 * **Direct Submit Link:**  
-  👉 [Submit to r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/submit?title=Sad%20Sausage%3A%20Real-world%20context%20truncation%20when%20running%20local%20agentic%20smart-home%20%26%20IT%20log%20triage%20on%2012GB%20VRAM&url=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage)
+  👉 [Submit to r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/submit?title=Sad%20Sausage%3A%20Benchmarking%20edge%20KV-cache%20context%20exhaustion%20during%20continuous%20local%20IoT%20log%20triage%20on%2012GB%20VRAM&url=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage)
 
 ### 🟧 Hacker News (Show HN)
-* **Title:** `Show HN: Sad Sausage – A self-hosted smart-home and IT ops AI agent`
+* **Title:** `Show HN: Sad Sausage – An open-source edge AI agent for home telemetry & IT triage`
 * **Direct Submit Link:**  
-  👉 [Submit to Hacker News](https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage&t=Show%20HN%3A%20Sad%20Sausage%20%E2%80%93%20A%20self-hosted%20smart-home%20and%20IT%20ops%20AI%20agent)
+  👉 [Submit to Hacker News](https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage&t=Show%20HN%3A%20Sad%20Sausage%20%E2%80%93%20An%20open-source%20edge%20AI%20agent%20for%20home%20telemetry%20%26%20IT%20triage)
 
-### 🐦 X (Twitter)
+### 🐦 X (Twitter) / Social Channels
 * **Direct Tweet Link:**  
-  👉 [Post on X / Twitter](https://twitter.com/intent/tweet?text=%F0%9F%8C%AD%20Running%20a%20local%20AI%20agent%20for%20Home%20Assistant%20%26%20IT%20troubleshooting%20on%20a%202012%20i5%20%2B%2012GB%20RTX%203060%20means%20constant%20context%20resets%20when%20logs%20get%20long!%0A%0AWe%27re%20crowdfunding%20hardware%20in%20itemized%20tiers%20with%20a%20public%20ledger%3A%0Ahttps%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage%0A%23HomeAssistant%20%23LocalAI%20%23SelfHosted)
+  👉 [Post on X / Twitter](https://twitter.com/intent/tweet?text=Sad%20Sausage%20(SS-Ops)%3A%20An%20open-source%20Edge%20AI%20operations%20agent%20for%20Home%20Assistant%20telemetry%20and%20local%20infrastructure%20triage%20via%20standard%20MCP.%0A%0AArchitecture%20%26%20Public%20Hardware%20Ledger%3A%0Ahttps%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage%0A%23HomeAssistant%20%23LocalAI%20%23SelfHosted%20%23EdgeAI)
 
 ---
 
-## 🏷️ 2. Recommended GitHub Topics
+## 2. Recommended GitHub Repository Topics
 
-Update your repository topics on [github.com/TheKlython/sad-sausage](https://github.com/TheKlython/sad-sausage) under **About ⚙️**:
+Configure these topics on [github.com/TheKlython/sad-sausage](https://github.com/TheKlython/sad-sausage) under **About ⚙️**:
 
 ```text
-home-assistant, smart-home, self-hosted, ai-agent, mcp-server, localllm, model-context-protocol, local-ai, buymeacoffee, crowdfunding, it-operations
+home-assistant, smart-home, self-hosted, edge-ai, ai-agent, mcp-server, localllm, model-context-protocol, local-ai, open-source, it-operations
 ```
 
 ---
 
-## 📋 3. Awesome MCP Servers Listing
+## 3. Awesome MCP Servers Directory Listing
 
-Submit a Pull Request to [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers):
+To submit to curated directories such as [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers):
 
 ```markdown
-- [Sad Sausage](https://github.com/TheKlython/sad-sausage) 🌭 - A self-hosted Smart-Home & IT Ops AI agent MCP server exposing operational status, telemetry summaries, and itemized hardware upgrade roadmaps.
+- [Sad Sausage (SS-Ops)](https://github.com/TheKlython/sad-sausage) - A deterministic, open-source Edge AI operations agent exposing Home Assistant telemetry and infrastructure triage capabilities via standard Model Context Protocol (MCP).
 ```

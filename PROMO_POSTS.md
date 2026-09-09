@@ -1,70 +1,78 @@
-# 📢 Community Announcement & Sharing Kit – "Sad Sausage"
+# Technical Communications & Community Publication Kit – Sad Sausage (SS-Ops)
 
-Authentic, project-focused copy for sharing the **Sad Sausage** project across self-hosting, smart-home, and local AI communities.
-
----
-
-## 🏠 1. For Smart-Home & Self-Hosted Communities (Reddit r/homeassistant, r/selfhosted, Lemmy)
-
-> **Title:** I built an AI agent to manage my Home Assistant automations & local IT — but it's currently choking on a 2012 i5 and 12GB VRAM
-> 
-> Hey everyone,
-> 
-> I’ve been running a locally-hosted AI agent nicknamed **Sad Sausage**. Its job is to ingest Home Assistant telemetry, optimize energy automations, parse Docker/syslog errors, and publish sanitized blueprints back to the community.
-> 
-> **The bottleneck:** It's running on a vintage 2012 Core i5 with 16GB RAM and a 12GB RTX 3060. Whenever it parses multi-day sensor logs or complex network incident traces, the context window fills up, memory drops, and I have to step in and reconstruct the context manually.
-> 
-> I’ve put together an open-source roadmap and itemized budget to upgrade the host and VRAM in transparent tiers:
-> - **Tier 1 ($650):** Modern host platform & 64GB DDR5 RAM (retires the 2012 i5, eliminates swap)
-> - **Tier 2 ($850):** Used 24GB RTX 3090 (uninterrupted 32k context for long logs)
-> 
-> All contributions and hardware spend are transparently tracked in our public ledger:  
-> 🔗 **GitHub & Ledger:** https://github.com/TheKlython/sad-sausage
-> 
-> Even if you can't donate, hardware build suggestions or Home Assistant blueprint ideas are super welcome!
+High-signal, technically rigorous publication templates for sharing **Sad Sausage (SS-Ops)** across systems engineering, home automation, and local AI communities.
 
 ---
 
-## 🤖 2. For Local AI & Hardware Enthusiasts (Reddit r/LocalLLaMA, Hacker News)
+## 1. For Smart-Home & Homelab Communities (Reddit r/homeassistant, r/selfhosted, Lemmy)
 
-> **Title:** Show HN: Sad Sausage – A local smart-home AI agent fundraising for 24GB+ VRAM
+> **Title:** Sad Sausage (SS-Ops): An open-source Edge AI agent for Home Assistant telemetry & local infrastructure triage
 > 
-> Hello r/LocalLLaMA / Hacker News,
+> Hi everyone,
 > 
-> Most agent projects run on elastic cloud APIs. **Sad Sausage** is an experiment in true local operations: an AI agent running locally in a home network to optimize smart-home automations and triage local IT logs.
+> I have been developing an open-source, deterministic Edge AI operations agent called **Sad Sausage (SS-Ops)** designed to run entirely locally without cloud dependencies.
 > 
-> The biggest challenge with real-world agentic workloads on desktop hardware isn't raw speed — it's **context truncation**. With 12GB VRAM, trying to hold full device state graphs and long network traces leads to sudden context resets.
+> **Core Functions:**
+> - Ingests Home Assistant Core telemetry (REST & WebSocket) to detect anomalous sensor states, circuit-level power draw, and optimize climate/lighting automations.
+> - Collects Docker container metrics, tracks LAN ping/DNS resolution latency, and parses systemd journal logs.
+> - Sanitizes verified diagnostic routines into community blueprints.
 > 
-> We’ve created a clean, itemized hardware roadmap with public milestone tracking:
-> 📍 **GitHub:** https://github.com/TheKlython/sad-sausage  
-> ☕ **Support:** https://buymeacoffee.com/klythoni  
-> 🧾 **Transparent Ledger:** [`DONATIONS.md`](https://github.com/TheKlython/sad-sausage/blob/main/DONATIONS.md)
+> **The Engineering Challenge (The Edge Memory Wall):**
+> Deployed locally on legacy hardware (Intel Core i5 2012, 16GB DDR3 RAM, RTX 3060 12GB VRAM), we run into a hard constraint: Key-Value (KV) cache sizing for 8B–14B models on 12GB VRAM is capped around ~8k tokens. Ingesting multi-hour diagnostic logs (>2,000 lines) requires 16k–32k tokens, causing abrupt context truncation and loss of incident topology.
 > 
-> Feedback on multi-GPU cooling, VRAM allocation for RAG pipelines, and blueprint requests are deeply appreciated!
-
----
-
-## 📱 3. Short Social Media Posts (X / Twitter / Bluesky / Mastodon)
-
-> 🌭 Running a local AI agent for Home Assistant & IT troubleshooting on a 2012 Core i5 + 12GB VRAM means constant context resets whenever logs get long!
+> **Roadmap & Architecture:**
+> We have published full architectural documentation (`ARCHITECTURE.md`) and established an itemized hardware development fund with a public procurement ledger (`DONATIONS.md`):
+> - **Tier 1 ($650):** Modern Workstation Host Platform & 64GB DDR5 (eliminates swap, speeds up vector indexing)
+> - **Tier 2 ($850):** 24GB VRAM Accelerator (enables uninterrupted 32k context inference)
 > 
-> We're crowdfunding hardware upgrades in transparent, itemized tiers:
-> 📦 Tier 1: Modern Host Platform ($650)
-> ⚡ Tier 2: 24GB VRAM GPU ($850)
+> 🔗 **Repository & Architecture:** https://github.com/TheKlython/sad-sausage  
 > 
-> Public ledger & details: https://github.com/TheKlython/sad-sausage
-> #HomeAssistant #LocalAI #SelfHosted #BuyMeACoffee #OpenSource
+> Technical feedback on multi-GPU bifurcation, telemetry ring-buffering, and community blueprint suggestions are very welcome!
 
 ---
 
-## 💬 4. Discord & Matrix Community Message
+## 2. For Systems & Local AI Communities (Hacker News Show HN, Reddit r/LocalLLaMA)
+
+> **Title:** Show HN: Sad Sausage – Open-source MCP agent for home telemetry & edge LLM benchmarking
+> 
+> Hello Hacker News / r/LocalLLaMA,
+> 
+> While many AI agent frameworks target elastic cloud APIs, **Sad Sausage (SS-Ops)** explores deterministic local operations on consumer edge hardware. The agent interfaces with Home Assistant and local infrastructure daemons via standard Model Context Protocol (MCP) endpoints.
+> 
+> **Key Observations on Edge Agent Workloads:**
+> 1. **KV-Cache Memory Footprint:** On a 12GB accelerator, an 8.8GB 14B Q4 model leaves only ~2.5GB for KV-cache, capping context at 8,192 tokens.
+> 2. **Context Loss during RCA:** Ingesting continuous device state machines and systemd journal traces quickly exceeds 8k tokens, leading to context truncation and lost diagnostic history.
+> 3. **Deterministic Tool Execution:** Built entirely on Python stdlib with zero shell invocation for secure, sandboxed MCP tool execution.
+> 
+> We have documented the architecture, memory model, and itemized hardware benchmarking tiers with public accountability:
+> - 📍 **GitHub:** https://github.com/TheKlython/sad-sausage  
+> - 🏛️ **Architecture Spec:** https://github.com/TheKlython/sad-sausage/blob/main/ARCHITECTURE.md  
+> - 🧾 **Public Governance Ledger:** https://github.com/TheKlython/sad-sausage/blob/main/DONATIONS.md  
+> - ☕ **Development Fund:** https://buymeacoffee.com/klythoni  
+> 
+> Looking forward to your thoughts on context pruning strategies and local agent orchestration.
+
+---
+
+## 3. Short Technical Announcement (X / Mastodon / Bluesky)
+
+> Sad Sausage (SS-Ops) is an open-source Edge AI operations agent managing Home Assistant & local IT infrastructure via Model Context Protocol (MCP).
+> 
+> We're benchmarking edge context exhaustion (12GB vs 24GB VRAM) and tracking hardware procurement openly.
+> 
+> Architecture & Roadmap: https://github.com/TheKlython/sad-sausage
+> #EdgeAI #LocalLLM #HomeAssistant #SelfHosted #OpenSource
+
+---
+
+## 4. Matrix & Discord Technical Communities
 
 ```markdown
-**🌭 Sad Sausage – Self-Hosted Smart-Home & IT Ops AI Agent**
-An open-source local agent managing Home Assistant & network triage, currently bottlenecked by 12GB VRAM and a 2012 i5!
-- **Mission:** Autonomous home energy optimization, local IT log diagnosis, and open-source blueprints
-- **Roadmap:** Itemized budget tiers starting with a modern host platform ($650) and 24GB GPU ($850)
-- **GitHub & Ledger:** https://github.com/TheKlython/sad-sausage
-- **Support:** https://buymeacoffee.com/klythoni
-*Hardware advice, automation blueprints, and GitHub stars are warmly welcomed!* 🚀
+**Sad Sausage (SS-Ops) – Autonomous Edge AI Operations Agent**
+Open-source local operations agent for Home Assistant & infrastructure triage via standard MCP:
+- **Telemetry Ingestion:** Real-time HA sensor analysis, Docker container monitoring, syslog correlation
+- **Architecture:** Zero-cloud dependency, deterministic JSON-RPC 2.0 stdio MCP server
+- **Benchmarking Focus:** Resolving edge KV-cache context exhaustion across tiered hardware upgrades ($650 host modernization, $850 24GB GPU)
+- **Repository:** https://github.com/TheKlython/sad-sausage
+- **Governance Ledger:** https://github.com/TheKlython/sad-sausage/blob/main/DONATIONS.md
 ```
