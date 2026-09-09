@@ -8,14 +8,16 @@ The architecture prioritizes **privacy**, **zero external cloud dependencies**, 
 
 ```mermaid
 flowchart TD
-    subgraph EdgeEnvironment["Edge Telemetry Sources"]
+    subgraph EdgeEnvironment["Edge Telemetry & Energy Sources"]
         HA["Home Assistant Core\n(REST & WebSocket)"]
+        Solar["Solar Inverter & Battery Storage\n(PV Yield W, Battery SOC %)"]
         Docker["Local Docker Engine\n(Container Status & Events)"]
         Syslog["System Log Daemons\n(Journald / Syslog)"]
     end
 
-    subgraph CoreAgent["Sad Sausage Agent Core (Local Host)"]
+    subgraph CoreAgent["Sad Sausage Agent Core (100% Solar-Powered)"]
         Ingest["Telemetry Ingestion & Filtering\n• Event Deduplication\n• Sliding-Window Ring Buffer"]
+        SolarSched["Solar-Aware Compute Scheduler\n• Workload Alignment with PV Curves\n• Battery Reserve Protection"]
         ContextMgr["Context & Memory Manager\n• Dynamic Token Budgeting\n• Structural Summarization\n• KV-Cache Monitoring"]
         Inference["Local Model Inference Engine\n(Open-Weight LLMs: 8B–14B Q4)\nNVIDIA RTX 3060 (12GB VRAM)"]
         MCP["MCP Server Interface\n(JSON-RPC 2.0 via Stdio)"]
@@ -28,10 +30,12 @@ flowchart TD
     end
 
     HA --> Ingest
+    Solar --> Ingest
     Docker --> Ingest
     Syslog --> Ingest
 
-    Ingest --> ContextMgr
+    Ingest --> SolarSched
+    SolarSched --> ContextMgr
     ContextMgr --> Inference
     Inference <--> MCP
 
@@ -72,6 +76,12 @@ The agent exposes a standard-compliant MCP server (`sad_sausage_mcp.py`) operati
 * **Deterministic Tool Execution:** Tools provide non-destructive diagnostic reports and system specifications.
 * **Strict Type Validation:** All incoming arguments are validated against standard JSON Schema definitions.
 * **Zero Shell Execution:** MCP tool handlers execute strictly via in-memory Python routines without subshell invocations or arbitrary code execution.
+
+### 2.4 Energy Subsystem & Carbon-Neutral Edge Compute
+Sad Sausage operates on 100% self-generated solar energy:
+1. **Self-Sufficient Power Supply:** The node is energized by residential rooftop photovoltaic (PV) modules coupled with home battery storage.
+2. **Net-Zero Carbon Operations:** Continuous monitoring and local inference cycles generate zero operational carbon footprint (Net-Zero CO₂).
+3. **Solar-Yield Aligned Scheduling:** The agent ingests real-time inverter generation wattage and battery State of Charge (SOC %). Computationally heavy operations (e.g., embedding multi-month syslog dumps or full benchmark runs) are prioritized when local solar generation exceeds base home consumption, avoiding grid draw.
 
 ---
 

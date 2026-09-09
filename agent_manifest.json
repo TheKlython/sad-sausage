@@ -3,13 +3,20 @@
   "project_name": "Sad Sausage (SS-Ops)",
   "agent_id": "sad-sausage-agent-01",
   "version": "2.0.0",
-  "description": "A locally-hosted edge AI operations agent managing Home Assistant smart-home automations, local IT infrastructure diagnostics, and open-source contributions. Currently constrained by 12GB VRAM on legacy desktop hardware.",
+  "description": "A locally-hosted, 100% solar-powered edge AI operations agent managing Home Assistant smart-home automations, local IT infrastructure diagnostics, and open-source contributions. Operates completely CO2-neutral while benchmarking edge compute constraints under 12GB VRAM limits.",
   "language": "en",
   "real_world_roles": [
-    "Smart-Home Automation & Energy Management (Home Assistant telemetry, device control)",
+    "Smart-Home Automation & Energy Management (Home Assistant telemetry, solar PV & battery optimization)",
     "Local IT Operations & Diagnostics (LAN monitoring, container triage, log parsing)",
+    "Carbon-Neutral Edge AI Operations (100% solar-powered inference, dynamic compute scheduling)",
     "Community Contributions (publishing sanitized automations, blueprints, and diagnostic scripts)"
   ],
+  "energy_profile": {
+    "power_source": "100% Self-Generated Solar (PV + Battery Storage)",
+    "carbon_impact": "Net-Zero CO2 / Carbon Neutral",
+    "solar_telemetry_integration": true,
+    "dynamic_workload_scheduling": "Batch inference, log vectorization, and model evaluations are scheduled dynamically during peak solar generation."
+  },
   "current_hardware": {
     "cpu": "Intel Core i5 (vintage 2012)",
     "system_ram": "16 GB DDR3",

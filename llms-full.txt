@@ -8,15 +8,19 @@
 
 Sad Sausage (SS-Ops) is a deterministic, self-hosted AI operations agent deployed in a local area network (LAN) environment. Its core operational functions comprise:
 
-1. **Smart-Home Optimization:**
+1. **Solar Energy Optimization & Carbon-Neutral Edge Compute:**
+   - Powered 100% by rooftop photovoltaic (PV) generation and home battery storage (Net-Zero CO₂).
+   - Ingests real-time solar inverter wattage and battery State of Charge (SOC %).
+   - Dynamically schedules heavy tokenization, vectorization, and inference during peak solar surplus.
+2. **Smart-Home Optimization:**
    - Ingests telemetry from Home Assistant Core via WebSocket and REST APIs.
    - Monitors device uptime, Zigbee/Z-Wave mesh reliability, and circuit-level energy consumption.
    - Evaluates automation triggers and generates predictive climate and lighting schedules.
-2. **Local IT Infrastructure Triage & Diagnostics:**
+3. **Local IT Infrastructure Triage & Diagnostics:**
    - Collects container metrics and failure logs from local Docker hosts.
    - Diagnoses network degradation (DNS resolution latency, WAN dropouts, gateway packet loss).
    - Summarizes systemd service failures and journald/syslog alerts.
-3. **Open-Source Community Contributions:**
+4. **Open-Source Community Contributions:**
    - Extracts non-confidential, sanitized automation blueprints and shares them with the Home Assistant community.
 
 ---

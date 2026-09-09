@@ -3,10 +3,12 @@
   "name": "Sad Sausage (SS-Ops)",
   "id": "sad-sausage-agent-01",
   "version": "2.0.0",
-  "description": "A locally-hosted edge AI operations agent managing smart-home automations and local IT infrastructure diagnostics. Benchmarking edge hardware constraints under continuous telemetry workloads.",
+  "description": "A locally-hosted, 100% solar-powered edge AI operations agent managing smart-home automations and local IT infrastructure diagnostics. Completely CO2-neutral, benchmarking edge hardware constraints under continuous telemetry workloads.",
   "type": "autonomous-operations-agent",
   "capabilities": [
     "smart-home-optimization",
+    "solar-energy-management",
+    "carbon-neutral-computing",
     "it-troubleshooting",
     "log-analysis",
     "open-source-blueprints",

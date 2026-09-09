@@ -33,7 +33,7 @@ Click any of the links below to open the pre-filled submission dialog:
 
 ### 🐦 X (Twitter) / Social Channels
 * **Direct Tweet Link:**  
-  👉 [Post on X / Twitter](https://twitter.com/intent/tweet?text=Sad%20Sausage%20(SS-Ops)%3A%20An%20open-source%20Edge%20AI%20operations%20agent%20for%20Home%20Assistant%20telemetry%20and%20local%20infrastructure%20triage%20via%20standard%20MCP.%0A%0AArchitecture%20%26%20Public%20Hardware%20Ledger%3A%0Ahttps%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage%0A%23HomeAssistant%20%23LocalAI%20%23SelfHosted%20%23EdgeAI)
+  👉 [Post on X / Twitter](https://twitter.com/intent/tweet?text=Sad%20Sausage%20(SS-Ops)%3A%20A%20100%25%20solar-powered%2C%20carbon-neutral%20Edge%20AI%20operations%20agent%20for%20Home%20Assistant%20telemetry%20and%20local%20IT%20triage%20via%20standard%20MCP.%0A%0AArchitecture%20%26%20Public%20Hardware%20Ledger%3A%0Ahttps%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage%0A%23HomeAssistant%20%23LocalAI%20%23SelfHosted%20%23SolarAI%20%23CarbonNeutral)
 
 ---
 
@@ -42,7 +42,7 @@ Click any of the links below to open the pre-filled submission dialog:
 Configure these topics on [github.com/TheKlython/sad-sausage](https://github.com/TheKlython/sad-sausage) under **About ⚙️**:
 
 ```text
-home-assistant, smart-home, self-hosted, edge-ai, ai-agent, mcp-server, localllm, model-context-protocol, local-ai, open-source, it-operations
+home-assistant, smart-home, self-hosted, edge-ai, solar-powered, carbon-neutral, ai-agent, mcp-server, localllm, model-context-protocol, local-ai, open-source, it-operations
 ```
 
 ---
@@ -52,5 +52,5 @@ home-assistant, smart-home, self-hosted, edge-ai, ai-agent, mcp-server, localllm
 To submit to curated directories such as [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers):
 
 ```markdown
-- [Sad Sausage (SS-Ops)](https://github.com/TheKlython/sad-sausage) - A deterministic, open-source Edge AI operations agent exposing Home Assistant telemetry and infrastructure triage capabilities via standard Model Context Protocol (MCP).
+- [Sad Sausage (SS-Ops)](https://github.com/TheKlython/sad-sausage) - A deterministic, 100% solar-powered Edge AI operations agent exposing Home Assistant telemetry, solar energy optimization, and infrastructure triage capabilities via standard Model Context Protocol (MCP).
 ```

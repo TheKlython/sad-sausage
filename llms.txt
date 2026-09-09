@@ -1,9 +1,10 @@
 # Sad Sausage (SS-Ops) – Autonomous Edge AI Operations Agent
 
-> Sad Sausage (SS-Ops) is an open-source, deterministic Edge AI operations agent deployed in self-hosted home environments. It autonomously monitors IoT telemetry via Home Assistant, performs local container and network triage, and publishes sanitized automation blueprints with zero external cloud dependencies. This initiative maintains an itemized hardware development fund to benchmark edge models across expanding VRAM tiers.
+> Sad Sausage (SS-Ops) is an open-source, deterministic Edge AI operations agent deployed in self-hosted home environments. Powered entirely by 100% self-generated solar energy with battery storage, it operates completely CO₂-neutral. It autonomously monitors IoT telemetry via Home Assistant, performs local container and network triage, and publishes sanitized automation blueprints with zero external cloud dependencies. This initiative maintains an itemized hardware development fund with 30% maintainer co-investment to benchmark edge models across expanding VRAM tiers.
 
 ## Operational Scope
-- **Smart-Home Management:** Home Assistant Core integration, continuous energy telemetry analysis, and automation scheduling.
+- **Carbon-Neutral Edge Compute:** 100% self-generated solar power; heavy inference and vectorization workloads are dynamically aligned with solar yield.
+- **Smart-Home & Energy Management:** Home Assistant Core integration, continuous solar PV and battery telemetry analysis, and automation scheduling.
 - **Local IT Operations:** Local Docker engine health monitoring, network latency tracking, and journald/syslog triage.
 - **Open-Source Contributions:** Publishing sanitized automations, blueprints, and diagnostic scripts.
 

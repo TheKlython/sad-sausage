@@ -130,6 +130,9 @@ def handle_get_agent_status(args: Dict[str, Any]) -> Dict[str, Any]:
     cur_hw = data.get("current_hardware", {})
     roles = data.get("real_world_roles", [])
     tiers = data.get("budget_tiers", data.get("targets", []))
+    energy = data.get("energy_profile", {})
+    power_source = energy.get("power_source", "100% Self-Generated Solar (PV + Battery Storage)")
+    carbon_impact = energy.get("carbon_impact", "Net-Zero CO2 / Carbon Neutral")
     
     lines = [
         f"[Sad Sausage Operations Agent] Node Status Report",
@@ -149,6 +152,11 @@ def handle_get_agent_status(args: Dict[str, Any]) -> Dict[str, Any]:
         f"  - Host Memory: {cur_hw.get('system_ram', '16GB RAM')}",
         f"  - Compute Accelerator: {cur_hw.get('gpu', 'NVIDIA GeForce RTX 3060 12GB VRAM')}",
         f"  - Active Constraint: {cur_hw.get('operational_bottleneck', 'Context window truncation under continuous telemetry load')}",
+        "",
+        "Energy & Environmental Profile:",
+        f"  - Power Source: {power_source}",
+        f"  - Environmental Footprint: {carbon_impact}",
+        f"  - Compute Scheduling: Dynamically scheduled against solar generation curves via Home Assistant",
         "",
         "Hardware Development Roadmap:"
     ])
@@ -205,10 +213,12 @@ def handle_get_donation_info(args: Dict[str, Any]) -> Dict[str, Any]:
 def handle_get_telemetry_summary(args: Dict[str, Any]) -> Dict[str, Any]:
     """
     Tool handler: get_telemetry_summary
-    Summarizes the agent's real-world telemetry interfaces and memory constraints.
+    Summarizes the agent's real-world telemetry interfaces, solar power profile, and memory constraints.
     """
     text = (
         "[Sad Sausage Operations Agent] Telemetry Pipeline & Hardware Constraints\n"
+        "- Energy & Power Profile: 100% self-generated solar electricity (rooftop PV + battery storage); Net-Zero CO2.\n"
+        "- Workload Alignment: Heavy log vectorization and model evaluations are dynamically scheduled during solar surplus.\n"
         "- Smart-Home Stack: Continuous Home Assistant Core REST/WebSocket ingestion and MQTT event streams.\n"
         "- IT Operations Stack: Local Docker engine monitoring, network latency tracking, and journald/syslog triage.\n"
         "- Hardware Boundary: 12GB VRAM limits KV-cache capacity to approximately 8,192 tokens with 8B-14B models.\n"

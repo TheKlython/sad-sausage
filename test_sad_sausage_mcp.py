@@ -126,6 +126,8 @@ class TestSadSausageMCPServer(unittest.TestCase):
         self.assertIn("Tier", content)
         self.assertIn("€", content)
         self.assertIn("Maintainer 30%", content)
+        self.assertIn("Solar", content)
+        self.assertIn("CO2", content)
         # Ensure no hotdog emojis or casual meme strings
         self.assertNotIn("🌭", content)
 
@@ -164,6 +166,8 @@ class TestSadSausageMCPServer(unittest.TestCase):
         self.assertIn("[Sad Sausage Operations Agent] Telemetry Pipeline", content)
         self.assertIn("Home Assistant", content)
         self.assertIn("12GB VRAM", content)
+        self.assertIn("solar", content.lower())
+        self.assertIn("co2", content.lower())
         self.assertNotIn("📊", content)
 
     def test_tool_validate_manifest_integrity_success(self):

@@ -4,10 +4,12 @@
 [![Python: 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![MCP Standard: 2024-11-05](https://img.shields.io/badge/MCP-2024--11--05-purple.svg?style=flat-square)](https://modelcontextprotocol.io)
 [![Architecture: Local Edge](https://img.shields.io/badge/Architecture-Local_Edge_AI-brightgreen.svg?style=flat-square)](#-system-architecture)
-[![Hardware Stage: Baseline](https://img.shields.io/badge/Hardware_Stage-Tier_1_Target_(476_€)-orange.svg?style=flat-square)](#-hardware-development-roadmap--itemized-budget)
+[![Energy: 100% Solar-Powered](https://img.shields.io/badge/Energy-100%25_Solar_Powered-brightgreen.svg?style=flat-square)](#-100-solar-powered--carbon-neutral-operations)
+[![Carbon: Net-Zero CO2](https://img.shields.io/badge/Carbon-Net--Zero_CO%E2%82%82-success.svg?style=flat-square)](#-100-solar-powered--carbon-neutral-operations)
+[![Hardware Stage: Baseline](https://img.shields.io/badge/Hardware_Stage-Tier_1_Target_(476_€)-orange.svg?style=flat-square)](#-hardware-development-roadmap--co-investment-model)
 [![Project Sponsorship](https://img.shields.io/badge/Sponsor-Buy_Me_A_Coffee-FFDD00.svg?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/klythoni)
 
-> **Sad Sausage (SS-Ops)** is an open-source, deterministic Edge AI operations agent deployed in self-hosted home environments. It autonomously monitors IoT telemetry via Home Assistant, performs local container and network triage, and generates sanitized automation blueprints — operating with zero third-party cloud dependencies for complete data sovereignty.
+> **Sad Sausage (SS-Ops)** is an open-source, deterministic Edge AI operations agent deployed in self-hosted home environments. Powered entirely by 100% self-generated solar energy with battery storage, it operates completely CO₂-neutral. It autonomously monitors IoT telemetry via Home Assistant, performs local container and network triage, and generates sanitized automation blueprints — operating with zero third-party cloud dependencies for complete data sovereignty.
 
 ---
 
@@ -19,12 +21,14 @@ The agent runs as an isolated daemon on the local area network (LAN), integratin
 flowchart LR
     subgraph Sources["Local Telemetry Sources"]
         HA["Home Assistant Core\n(REST & WebSocket)"]
+        Solar["Solar Inverter & Battery\n(Generation & SOC Telemetry)"]
         Docker["Docker Engine\n(Container Metrics)"]
         Syslog["Host Journald\n(Network & System Logs)"]
     end
 
-    subgraph AgentNode["Sad Sausage Agent Node"]
+    subgraph AgentNode["Sad Sausage Agent Node (100% Solar-Powered)"]
         Ingest["Telemetry Normalization &\nSliding-Window Ring Buffer"]
+        SolarSched["Solar-Aware Dynamic\nCompute Scheduler"]
         MemMgr["Dynamic Context\nBudgeting & KV Monitor"]
         LLM["Local Inference Engine\n(8B–14B Q4 Open-Weight LLMs)"]
         MCP["MCP Server Protocol\n(JSON-RPC 2.0 / stdio)"]
@@ -36,7 +40,9 @@ flowchart LR
     end
 
     Sources --> Ingest
-    Ingest --> MemMgr
+    Solar --> Ingest
+    Ingest --> SolarSched
+    SolarSched --> MemMgr
     MemMgr --> LLM
     LLM <--> MCP
     MCP <--> Consumers
@@ -46,10 +52,20 @@ For comprehensive architectural specifications and component design patterns, co
 
 ---
 
+## ☀️ 100% Solar-Powered & Carbon-Neutral Operations
+
+Sad Sausage is engineered as an environmentally sustainable edge intelligence node:
+
+* **100% Self-Generated Solar Power:** The host workstation, compute accelerators, and local networking switch fabric are energized entirely by rooftop photovoltaic (PV) generation combined with residential battery storage.
+* **Net-Zero CO₂ Emissions:** All inference passes, continuous log tokenization, and vector telemetry indexing operate with zero operational carbon footprint.
+* **Solar-Aligned Compute Scheduling:** Interfacing with Home Assistant's PV inverter sensors and battery state-of-charge (SOC) metrics, heavy operational workloads (such as multi-day incident retrospects, batch log vectorization, and benchmark evaluations) are dynamically scheduled to align with peak solar yield curves, maximizing self-consumption and eliminating grid fossil-fuel reliance.
+
+---
+
 ## 🛠️ Operational Responsibilities
 
-1. **Smart-Home Telemetry & Energy Optimization:**  
-   Continuously ingests event feeds from Home Assistant Core. Evaluates Zigbee/Z-Wave mesh stability, analyzes circuit-level energy consumption, identifies anomalous sensor behavior, and optimizes climate/lighting schedules.
+1. **Smart-Home Telemetry & Solar Energy Optimization:**  
+   Continuously ingests event feeds from Home Assistant Core. Evaluates Zigbee/Z-Wave mesh stability, balances PV generation against battery storage, monitors circuit-level power draw, and predicts heating/cooling requirements.
 2. **Local IT Infrastructure Triage:**  
    Monitors Docker container health, evaluates syslog/journald alerts, diagnoses DNS latency and WAN degradation, and correlates multi-service dependencies during outages.
 3. **Open-Source Blueprint Engineering:**  
