@@ -41,7 +41,9 @@ class TestAgentManifestValidator(unittest.TestCase):
             "targets": [
                 {
                     "name": "Host Upgrade",
-                    "estimated_cost_usd": 650
+                    "estimated_cost_eur": 680,
+                    "maintainer_co_investment_eur": 204,
+                    "community_target_eur": 476
                 }
             ]
         }
@@ -124,6 +126,39 @@ class TestAgentManifestValidator(unittest.TestCase):
         is_valid, message = validate_agent_manifest(filepath)
         self.assertFalse(is_valid)
         self.assertIn("missing required field", message.lower())
+
+    def test_co_investment_arithmetic_mismatch(self):
+        """
+        Tests rejection of manifests where maintainer share + community share != total cost.
+        """
+        mismatched_data = dict(self.valid_data)
+        mismatched_data["targets"] = [
+            {
+                "name": "Mismatched Target",
+                "estimated_cost_eur": 680,
+                "maintainer_co_investment_eur": 204,
+                "community_target_eur": 400  # Sum is 604, but total is 680!
+            }
+        ]
+        filepath = self._write_manifest("mismatch.json", mismatched_data)
+        is_valid, message = validate_agent_manifest(filepath)
+        self.assertFalse(is_valid)
+        self.assertIn("arithmetic mismatch", message.lower())
+
+    def test_legacy_usd_target_compatibility(self):
+        """
+        Tests backward compatibility with legacy manifests specifying estimated_cost_usd.
+        """
+        legacy_data = dict(self.valid_data)
+        legacy_data["targets"] = [
+            {
+                "name": "Legacy USD Target",
+                "estimated_cost_usd": 650
+            }
+        ]
+        filepath = self._write_manifest("legacy_usd.json", legacy_data)
+        is_valid, message = validate_agent_manifest(filepath)
+        self.assertTrue(is_valid, f"Legacy manifest should be valid, but got: {message}")
 
 
 if __name__ == "__main__":

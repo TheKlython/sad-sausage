@@ -124,6 +124,8 @@ class TestSadSausageMCPServer(unittest.TestCase):
         self.assertIn("Smart-Home", content)
         self.assertIn("2012", content)
         self.assertIn("Tier", content)
+        self.assertIn("€", content)
+        self.assertIn("Maintainer 30%", content)
         # Ensure no hotdog emojis or casual meme strings
         self.assertNotIn("🌭", content)
 
@@ -142,6 +144,8 @@ class TestSadSausageMCPServer(unittest.TestCase):
         self.assertIn("[Sad Sausage Operations Agent] Hardware Development Fund & Sponsorship", content)
         self.assertIn(EXPECTED_SUPPORT_URL, content)
         self.assertIn("Buy Me a Coffee", content)
+        self.assertIn("Co-Investment Policy", content)
+        self.assertIn("30%", content)
         self.assertIn("DONATIONS.md", content)
         self.assertNotIn("☕", content)
 

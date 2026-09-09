@@ -21,9 +21,9 @@ High-signal, technically rigorous publication templates for sharing **Sad Sausag
 > Deployed locally on legacy hardware (Intel Core i5 2012, 16GB DDR3 RAM, RTX 3060 12GB VRAM), we run into a hard constraint: Key-Value (KV) cache sizing for 8B–14B models on 12GB VRAM is capped around ~8k tokens. Ingesting multi-hour diagnostic logs (>2,000 lines) requires 16k–32k tokens, causing abrupt context truncation and loss of incident topology.
 > 
 > **Roadmap & Architecture:**
-> We have published full architectural documentation (`ARCHITECTURE.md`) and established an itemized hardware development fund with a public procurement ledger (`DONATIONS.md`):
-> - **Tier 1 ($650):** Modern Workstation Host Platform & 64GB DDR5 (eliminates swap, speeds up vector indexing)
-> - **Tier 2 ($850):** 24GB VRAM Accelerator (enables uninterrupted 32k context inference)
+> We have published full architectural documentation (`ARCHITECTURE.md`) and established an itemized hardware development fund with a public procurement ledger (`DONATIONS.md`). To demonstrate genuine skin in the game, **the maintainer personally co-invests 30% of all hardware procurement costs**:
+> - **Tier 1 (Modern Host & 64GB DDR5):** Total 680 € (Maintainer 30%: 204 € | Community Target: 476 €)
+> - **Tier 2 (24GB Compute Accelerator):** Total 880 € (Maintainer 30%: 264 € | Community Target: 616 €)
 > 
 > 🔗 **Repository & Architecture:** https://github.com/TheKlython/sad-sausage  
 > 
@@ -72,7 +72,7 @@ High-signal, technically rigorous publication templates for sharing **Sad Sausag
 Open-source local operations agent for Home Assistant & infrastructure triage via standard MCP:
 - **Telemetry Ingestion:** Real-time HA sensor analysis, Docker container monitoring, syslog correlation
 - **Architecture:** Zero-cloud dependency, deterministic JSON-RPC 2.0 stdio MCP server
-- **Benchmarking Focus:** Resolving edge KV-cache context exhaustion across tiered hardware upgrades ($650 host modernization, $850 24GB GPU)
+- **Benchmarking Focus:** Resolving edge KV-cache context exhaustion across tiered hardware milestones with 30% maintainer co-investment (Tier 1 community target: 476 €)
 - **Repository:** https://github.com/TheKlython/sad-sausage
 - **Governance Ledger:** https://github.com/TheKlython/sad-sausage/blob/main/DONATIONS.md
 ```

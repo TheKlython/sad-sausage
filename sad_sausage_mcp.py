@@ -156,8 +156,15 @@ def handle_get_agent_status(args: Dict[str, Any]) -> Dict[str, Any]:
     for t in tiers:
         tier_num = t.get("tier", "")
         name = t.get("name", "")
-        cost = t.get("target_amount_usd", t.get("estimated_cost_usd", 0))
-        lines.append(f"  Tier {tier_num}: {name} (~${cost} USD)")
+        total_cost = t.get("total_cost_eur", t.get("estimated_cost_eur", t.get("target_amount_usd", 0)))
+        maintainer_share = t.get("maintainer_co_investment_eur")
+        community_target = t.get("community_target_eur", t.get("target_amount_eur", total_cost))
+        
+        if maintainer_share is not None:
+            lines.append(f"  Tier {tier_num}: {name} (Total: {total_cost} € | Maintainer 30%: {maintainer_share} € | Community Target: {community_target} €)")
+        else:
+            lines.append(f"  Tier {tier_num}: {name} (~{total_cost} €)")
+
         if "hardware_items" in t:
             lines.append(f"    Hardware: {t.get('hardware_items')}")
         if "impact" in t:
@@ -176,13 +183,16 @@ def handle_get_donation_info(args: Dict[str, Any]) -> Dict[str, Any]:
     """
     data = _read_manifest_data()
     support = data.get("support", {})
+    funding = data.get("funding_model", {})
     url = support.get("url", EXPECTED_SUPPORT_URL)
     platform = support.get("platform", "Buy Me a Coffee")
+    ratio_maintainer = int(funding.get("maintainer_co_investment_ratio", 0.30) * 100)
     
     text = (
         f"[Sad Sausage Operations Agent] Hardware Development Fund & Sponsorship\n"
         f"Platform: {platform}\n"
         f"Sponsorship URL: {url}\n"
+        f"Co-Investment Policy: Maintainer co-invests {ratio_maintainer}% of all hardware procurement from personal funds.\n"
         f"Financial Governance: See DONATIONS.md for verified ledger and procurement logs.\n"
         f"Repository: https://github.com/TheKlython/sad-sausage"
     )

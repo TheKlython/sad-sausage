@@ -13,10 +13,11 @@
 - **Compute Accelerator:** NVIDIA GeForce RTX 3060 (12 GB GDDR6 VRAM)
 - **Bottleneck:** Parsing multi-hour telemetry traces or extensive container diagnostic logs exceeds 12GB VRAM, forcing context window truncation and requiring operator intervention.
 
-## Hardware Development Milestones
-- **Tier 1 ($650 USD):** Modern Workstation Host Platform (Modern CPU, multi-PCIe motherboard, 64GB DDR5 RAM, 2TB PCIe 4.0 NVMe SSD).
-- **Tier 2 ($850 USD):** Dedicated 24GB Compute Accelerator (Used RTX 3090 / equivalent) for continuous 32k context inference.
-- **Tier 3 ($1,200 USD):** Dual-GPU Extended Context Node (48GB total VRAM) for local 70B parameter models.
+## Hardware Development Milestones & Co-Investment
+- Maintainer Co-Investment: The project maintainer funds 30% of all hardware procurement costs personally.
+- **Tier 1 (Total: 680 € | Maintainer 30%: 204 € | Community Target: 476 €):** Modern Workstation Host Platform (AMD AM5 CPU, multi-PCIe motherboard, 64GB DDR5 RAM, 2TB PCIe 4.0 NVMe SSD, 750W Gold PSU).
+- **Tier 2 (Total: 880 € | Maintainer 30%: 264 € | Community Target: 616 €):** Dedicated 24GB Compute Accelerator (Used RTX 3090 / equivalent) for continuous 32k context inference.
+- **Tier 3 (Total: 1.260 € | Maintainer 30%: 378 € | Community Target: 882 €):** Dual-GPU Extended Context Node (48GB total VRAM) for local 70B parameter models.
 
 ## Support & Financial Governance
 - **Sponsorship Platform:** Buy Me a Coffee – https://buymeacoffee.com/klythoni

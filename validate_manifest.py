@@ -102,10 +102,32 @@ def validate_agent_manifest(filepath: str) -> Tuple[bool, str]:
     for index, target in enumerate(targets):
         if not isinstance(target, dict):
             return False, f"Target at index {index} is not a valid object."
-        if "name" not in target or "estimated_cost_usd" not in target:
-            return False, f"Target at index {index} missing required fields ('name', 'estimated_cost_usd')."
-        if not isinstance(target["estimated_cost_usd"], (int, float)) or target["estimated_cost_usd"] <= 0:
+        if "name" not in target:
+            return False, f"Target at index {index} missing required field ('name')."
+        
+        # Support EUR as primary currency, with fallback to legacy USD
+        cost = target.get("estimated_cost_eur")
+        if cost is None:
+            cost = target.get("estimated_cost_usd")
+        if cost is None:
+            return False, f"Target at index {index} missing cost field ('estimated_cost_eur' or 'estimated_cost_usd')."
+        if not isinstance(cost, (int, float)) or cost <= 0:
             return False, f"Target at index {index} has invalid estimated cost."
+
+        # Validate co-investment (Eigenanteil) arithmetic consistency if present
+        if "maintainer_co_investment_eur" in target or "community_target_eur" in target:
+            self_fund = target.get("maintainer_co_investment_eur", 0)
+            comm_target = target.get("community_target_eur", 0)
+            if not isinstance(self_fund, (int, float)) or self_fund < 0:
+                return False, f"Target at index {index} has invalid maintainer co-investment."
+            if not isinstance(comm_target, (int, float)) or comm_target <= 0:
+                return False, f"Target at index {index} has invalid community target amount."
+            # Verify sum matches total within 1 EUR rounding tolerance
+            if abs((self_fund + comm_target) - cost) > 1.0:
+                return False, (
+                    f"Target at index {index} arithmetic mismatch: "
+                    f"Maintainer ({self_fund} €) + Community ({comm_target} €) != Total ({cost} €)"
+                )
 
     return True, "Manifest is complete, valid, and secure!"
 

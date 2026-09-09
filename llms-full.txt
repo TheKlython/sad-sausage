@@ -34,13 +34,15 @@ When evaluating multi-device state histories over 48 hours or analyzing incident
 
 ---
 
-## 3. Itemized Budget & Hardware Roadmaps
+## 3. Itemized Budget & Co-Investment Roadmap
 
-| Tier | Target (USD) | Hardware Components | Operational Impact |
-| :--- | :--- | :--- | :--- |
-| **Tier 1** | **$650** | Modern Workstation CPU + Multi-PCIe Motherboard + 64GB DDR5 RAM + 2TB NVMe SSD | Retires 2012 i5; eliminates host OS swap latency, enables vector indexing of multi-year IoT logs. |
-| **Tier 2** | **$850** | Used NVIDIA RTX 3090 (24GB VRAM) or RTX 4000 series equivalent | Doubles VRAM to 24GB. Enables 14B–32B models with 32k context for continuous log parsing without truncation. |
-| **Tier 3** | **$1,200** | Secondary 24GB GPU + Titanium PSU + Chassis Cooling | Expands total VRAM to 48GB+, unlocking 70B parameter models and deep multi-month telemetry reasoning. |
+> The project maintainer co-invests 30% of all hardware procurement costs from personal funds; community sponsorship funds the remaining 70%.
+
+| Tier | Total Cost (€) | Maintainer (30%) | Community Goal (70%) | Hardware Components | Operational Impact |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Tier 1** | **680 €** | **204 €** | **476 €** | Modern AM5 CPU + Multi-PCIe Motherboard + 64GB DDR5 RAM + 2TB NVMe SSD + 750W Gold PSU | Retires 2012 i5; eliminates host OS swap latency, enables vector indexing of multi-year IoT logs. |
+| **Tier 2** | **880 €** | **264 €** | **616 €** | Used NVIDIA GeForce RTX 3090 (24GB VRAM) + Thermal Pads | Doubles VRAM to 24GB. Enables 14B–32B models with 32k context for continuous log parsing without truncation. |
+| **Tier 3** | **1.260 €** | **378 €** | **882 €** | Secondary 24GB GPU + 1200W Titanium PSU + Dual-GPU Airflow Chassis | Expands total VRAM to 48GB+, unlocking 70B parameter models and deep multi-month telemetry reasoning. |
 
 ---
 

@@ -22,44 +22,66 @@
     "profile": "klythoni",
     "campaign_tagline": "Support the Sad Sausage Edge AI Hardware Development Fund"
   },
+  "funding_model": {
+    "currency": "EUR",
+    "currency_symbol": "€",
+    "maintainer_co_investment_ratio": 0.30,
+    "community_funding_ratio": 0.70,
+    "note": "The project maintainer co-invests 30% of all hardware procurement costs from personal funds."
+  },
   "budget_tiers": [
     {
       "tier": 1,
       "name": "Host Platform Modernization",
-      "target_amount_usd": 650,
-      "hardware_items": "Modern AM5 / Intel Workstation CPU + Motherboard + 64GB DDR5 RAM + 2TB NVMe SSD",
-      "impact": "Replaces 2012 i5; enables continuous long-term telemetry log parsing, vector storage, and zero-swap host stability."
+      "total_cost_eur": 680,
+      "maintainer_co_investment_eur": 204,
+      "community_target_eur": 476,
+      "target_amount_eur": 476,
+      "hardware_items": "Modern AMD AM5 CPU + Multi-PCIe Motherboard + 64GB DDR5 RAM + 2TB PCIe 4.0 NVMe SSD + 750W Gold ATX 3.0 PSU",
+      "impact": "Replaces 2012 i5; eliminates host swap latency, enables high-speed vector telemetry indexing, and ensures host stability."
     },
     {
       "tier": 2,
-      "name": "Dedicated Inference GPU (24GB VRAM)",
-      "target_amount_usd": 850,
-      "hardware_items": "Used NVIDIA RTX 3090 (24GB VRAM) or RTX 4000 series equivalent",
-      "impact": "Doubles VRAM from 12GB to 24GB. Unlocks unquantized 14B-32B models with 32k+ context for uninterrupted IT log diagnosis and complex automation logic."
+      "name": "Dedicated Compute Accelerator (24GB VRAM)",
+      "total_cost_eur": 880,
+      "maintainer_co_investment_eur": 264,
+      "community_target_eur": 616,
+      "target_amount_eur": 616,
+      "hardware_items": "Used NVIDIA GeForce RTX 3090 (24GB VRAM) + High-Performance Thermal Pads & Enclosure Reinforcement",
+      "impact": "Doubles VRAM from 12GB to 24GB. Unlocks native 32,768+ token context windows for uninterrupted IT log diagnosis without truncation."
     },
     {
       "tier": 3,
       "name": "Dual-GPU Extended Context Node (48GB+ VRAM)",
-      "target_amount_usd": 1200,
-      "hardware_items": "Secondary 24GB GPU + High-Wattage Titanium PSU + Multi-GPU Cooling",
-      "impact": "Enables 70B parameter models and deep historical context across months of home automation logs without context truncation."
+      "total_cost_eur": 1260,
+      "maintainer_co_investment_eur": 378,
+      "community_target_eur": 882,
+      "target_amount_eur": 882,
+      "hardware_items": "Secondary 24GB GPU + 1200W Titanium PSU + Dual-GPU Airflow Chassis & PCIe 4.0 Riser",
+      "impact": "Enables local 70B parameter models and deep historical cross-device correlation over months of home automation logs."
     }
   ],
   "targets": [
     {
       "name": "Tier 1 - Host Platform Modernization",
-      "estimated_cost_usd": 650,
-      "description": "Modern CPU, motherboard, 64GB DDR5 RAM, and fast NVMe storage."
+      "estimated_cost_eur": 680,
+      "maintainer_co_investment_eur": 204,
+      "community_target_eur": 476,
+      "description": "Modern AM5 CPU, motherboard, 64GB DDR5 RAM, and 2TB fast NVMe storage."
     },
     {
       "name": "Tier 2 - Dedicated 24GB GPU Upgrade",
-      "estimated_cost_usd": 850,
-      "description": "24GB VRAM GPU (RTX 3090/4090 class) for uninterrupted smart home & IT diagnostic context."
+      "estimated_cost_eur": 880,
+      "maintainer_co_investment_eur": 264,
+      "community_target_eur": 616,
+      "description": "24GB VRAM GPU (RTX 3090 class) for uninterrupted smart-home & IT diagnostic context."
     },
     {
       "name": "Tier 3 - Dual-GPU 48GB Node",
-      "estimated_cost_usd": 1200,
-      "description": "Secondary 24GB GPU + PSU for hosting local 70B models and full telemetry analysis."
+      "estimated_cost_eur": 1260,
+      "maintainer_co_investment_eur": 378,
+      "community_target_eur": 882,
+      "description": "Secondary 24GB GPU + 1200W PSU for hosting local 70B models and full telemetry analysis."
     }
   ],
   "links": {
