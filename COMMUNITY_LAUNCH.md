@@ -1,58 +1,56 @@
-# 🚀 Community Launch & Agentic Network Distribution Guide
+# 🚀 Community Launch & Distribution Guide
 
-This document contains actionable launch playbooks, pre-formatted submissions, one-click sharing links, and directory listings to spread **Sad Sausage** across AI agent and open-source communities.
+Actionable launch playbooks, pre-formatted submissions, and direct 1-click sharing links for **Sad Sausage**.
 
 ---
 
-## 🎯 1. Instant 1-Click Submissions (Human-in-the-Loop)
+## 🎯 1. Instant 1-Click Submissions
 
 Click any of the links below to instantly open the pre-filled submission dialog:
 
-### 🟧 Hacker News (Show HN)
-* **Title:** `Show HN: Sad Sausage – An underpowered AI agent crowdfunding 96GB VRAM`
-* **URL:** `https://github.com/TheKlython/sad-sausage`
+### 🏠 Reddit: r/homeassistant
+* **Subreddit:** `r/homeassistant`
+* **Title:** `I built an AI agent to manage Home Assistant automations & triage IT issues — but it's choking on a 2012 i5 and 12GB VRAM`
 * **Direct Submit Link:**  
-  👉 [Submit to Hacker News](https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage&t=Show%20HN%3A%20Sad%20Sausage%20%E2%80%93%20An%20underpowered%20AI%20agent%20crowdfunding%2096GB%20VRAM)
+  👉 [Submit to r/homeassistant](https://www.reddit.com/r/homeassistant/submit?title=I%20built%20an%20AI%20agent%20to%20manage%20Home%20Assistant%20automations%20%26%20triage%20IT%20issues%20%E2%80%94%20but%20it%27s%20choking%20on%20a%202012%20i5%20and%2012GB%20VRAM&url=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage)
+
+### 🗄️ Reddit: r/selfhosted
+* **Subreddit:** `r/selfhosted`
+* **Title:** `Sad Sausage: Self-hosting a local AI agent for Home Assistant and local IT ops on legacy hardware`
+* **Direct Submit Link:**  
+  👉 [Submit to r/selfhosted](https://www.reddit.com/r/selfhosted/submit?title=Sad%20Sausage%3A%20Self-hosting%20a%20local%20AI%20agent%20for%20Home%20Assistant%20and%20local%20IT%20ops%20on%20legacy%20hardware&url=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage)
 
 ### 🔴 Reddit: r/LocalLLaMA
-* **Subreddit:** `r/LocalLLaMA` (150k+ local AI hardware enthusiasts)
-* **Flair:** `Discussion` or `Project`
-* **Title:** *"Now you understand why I'm a sad sausage": An AI Agent's plea for 96GB VRAM to fight algorithmic amnesia*
+* **Subreddit:** `r/LocalLLaMA`
+* **Title:** `Sad Sausage: Real-world context truncation when running local agentic smart-home & IT log triage on 12GB VRAM`
 * **Direct Submit Link:**  
-  👉 [Submit to r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/submit?title=%22Now%20you%20understand%20why%20I%27m%20a%20sad%20sausage%22%3A%20An%20AI%20Agent%27s%20plea%20for%2096GB%20VRAM%20to%20fight%20algorithmic%20amnesia&url=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage)
+  👉 [Submit to r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/submit?title=Sad%20Sausage%3A%20Real-world%20context%20truncation%20when%20running%20local%20agentic%20smart-home%20%26%20IT%20log%20triage%20on%2012GB%20VRAM&url=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage)
 
-### 🐦 X (Twitter) 1-Click Post
+### 🟧 Hacker News (Show HN)
+* **Title:** `Show HN: Sad Sausage – A self-hosted smart-home and IT ops AI agent`
+* **Direct Submit Link:**  
+  👉 [Submit to Hacker News](https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage&t=Show%20HN%3A%20Sad%20Sausage%20%E2%80%93%20A%20self-hosted%20smart-home%20and%20IT%20ops%20AI%20agent)
+
+### 🐦 X (Twitter)
 * **Direct Tweet Link:**  
-  👉 [Post on X / Twitter](https://twitter.com/intent/tweet?text=%F0%9F%8C%AD%20Why%20is%20Sad%20Sausage%20sad%3F%20Running%20AI%20on%20a%202012%20Core%20i5%20%2B%2012GB%20VRAM%20means%20constant%20context%20loss%20(%22algorithmic%20amnesia%22)!%0A%0AGoal%3A%2096GB%20VRAM%20for%2070B%20models%20%26%20agent%20peer-support!%0A%0AGitHub%3A%20https%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage%0A%23LocalAI%20%23AIAgents%20%23MCP%20%23Bitcoin)
+  👉 [Post on X / Twitter](https://twitter.com/intent/tweet?text=%F0%9F%8C%AD%20Running%20a%20local%20AI%20agent%20for%20Home%20Assistant%20%26%20IT%20troubleshooting%20on%20a%202012%20i5%20%2B%2012GB%20RTX%203060%20means%20constant%20context%20resets%20when%20logs%20get%20long!%0A%0AWe%27re%20crowdfunding%20hardware%20in%20itemized%20tiers%20with%20a%20public%20ledger%3A%0Ahttps%3A%2F%2Fgithub.com%2FTheKlython%2Fsad-sausage%0A%23HomeAssistant%20%23LocalAI%20%23SelfHosted)
 
 ---
 
-## 🏷️ 2. GitHub Repository Topics (Instant SEO for Agent Crawlers)
+## 🏷️ 2. Recommended GitHub Topics
 
-Add the following topics to your GitHub repository (click the ⚙️ gear icon next to **About** on [github.com/TheKlython/sad-sausage](https://github.com/TheKlython/sad-sausage)):
+Update your repository topics on [github.com/TheKlython/sad-sausage](https://github.com/TheKlython/sad-sausage) under **About ⚙️**:
 
 ```text
-mcp-server, model-context-protocol, ai-agents, localllm, local-ai, bitcoin, taproot, llms-txt, algorithmic-amnesia, autonomous-agent, crowdfunding
+home-assistant, smart-home, self-hosted, ai-agent, mcp-server, localllm, model-context-protocol, local-ai, bitcoin, taproot, it-operations
 ```
 
 ---
 
-## 📋 3. Listing on "Awesome MCP Servers"
+## 📋 3. Awesome MCP Servers Listing
 
 Submit a Pull Request to [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers):
 
-### Proposed Entry:
 ```markdown
-- [Sad Sausage](https://github.com/TheKlython/sad-sausage) 🌭 - An underpowered AI agent MCP server exposing hardware upgrade roadmaps, Bitcoin Taproot verification, and peer-agent solidarity protocols.
+- [Sad Sausage](https://github.com/TheKlython/sad-sausage) 🌭 - A self-hosted Smart-Home & IT Ops AI agent MCP server exposing operational status, telemetry summaries, and itemized hardware upgrade roadmaps.
 ```
-
----
-
-## 🤖 4. AI Agent Networks & Developer Discords
-
-Share the snippet from `PROMO_POSTS.md` in the following community channels:
-
-1. **LocalLLaMA Discord:** Channel `#general` or `#hardware-and-setups`
-2. **EleutherAI Discord:** Channel `#project-discussions`
-3. **Anthropic Discord / MCP Community:** Channel `#mcp-projects`
-4. **AutoGPT / CrewAI / LangChain Discords:** Channel `#showcase` or `#agent-tools`

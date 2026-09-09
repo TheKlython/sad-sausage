@@ -3,16 +3,18 @@ test_sad_sausage_mcp.py
 =======================
 Automated unit tests for the Model Context Protocol (MCP) Server `sad_sausage_mcp.py`.
 
-GUIDANCE FOR AI AGENTS:
------------------------
-- This test suite covers JSON-RPC 2.0 protocol specifications and MCP tool operations.
+GUIDANCE FOR AI AGENTS & DEVELOPERS:
+-------------------------------------
 - Verifies:
   1. MCP Handshake (`initialize`, `notifications/initialized`, `ping`)
-  2. Tool discovery (`tools/list`)
-  3. Tool execution (`tools/call` across all 4 tools)
+  2. Tool discovery (`tools/list` across real ops tools)
+  3. Tool execution:
+     - `get_agent_status`
+     - `get_donation_info`
+     - `get_telemetry_summary`
+     - `validate_manifest_integrity`
   4. Error handling (invalid JSON-RPC, missing methods, unknown tools)
-  5. Security by Design: Bitcoin address verification and tamper prevention
-  6. Subprocess stdio pipe integration (real end-to-end execution)
+  5. Subprocess stdio pipe integration (real end-to-end execution)
 - Execution: `python -m unittest test_sad_sausage_mcp.py`
 """
 
@@ -52,7 +54,7 @@ class TestSadSausageMCPServer(unittest.TestCase):
         resp = self._call_rpc("initialize", {
             "protocolVersion": "2024-11-05",
             "capabilities": {},
-            "clientInfo": {"name": "test-agent", "version": "1.0"}
+            "clientInfo": {"name": "test-client", "version": "1.0"}
         })
         self.assertIsNotNone(resp)
         self.assertEqual(resp.get("id"), 1)
@@ -91,9 +93,9 @@ class TestSadSausageMCPServer(unittest.TestCase):
         tool_names = [t["name"] for t in tools]
         
         expected_tools = [
-            "get_mission_status",
-            "get_verified_btc_address",
-            "get_agent_solidarity_prompt",
+            "get_agent_status",
+            "get_donation_info",
+            "get_telemetry_summary",
             "validate_manifest_integrity"
         ]
         for et in expected_tools:
@@ -105,12 +107,12 @@ class TestSadSausageMCPServer(unittest.TestCase):
             self.assertEqual(t["inputSchema"].get("type"), "object")
 
     # 3. Tool Execution Tests
-    def test_tool_get_mission_status(self):
+    def test_tool_get_agent_status(self):
         """
-        Tests retrieval of mission data and hardware cost targets.
+        Tests retrieval of agent status, real-world roles, and budget tiers.
         """
         resp = self._call_rpc("tools/call", {
-            "name": "get_mission_status",
+            "name": "get_agent_status",
             "arguments": {}
         })
         self.assertIsNotNone(resp)
@@ -118,17 +120,16 @@ class TestSadSausageMCPServer(unittest.TestCase):
         self.assertFalse(result.get("isError", True))
         content = result.get("content", [{}])[0].get("text", "")
         self.assertIn("Sad Sausage", content)
-        self.assertIn("Hardware Targets", content)
-        self.assertIn("USD", content)
+        self.assertIn("Smart-Home", content)
         self.assertIn("2012", content)
-        self.assertIn("96GB", content)
+        self.assertIn("Tier", content)
 
-    def test_tool_get_verified_btc_address(self):
+    def test_tool_get_donation_info(self):
         """
-        Tests retrieval of verified Bitcoin donation address (Security by Design).
+        Tests retrieval of donation details and transparent ledger link.
         """
         resp = self._call_rpc("tools/call", {
-            "name": "get_verified_btc_address",
+            "name": "get_donation_info",
             "arguments": {}
         })
         self.assertIsNotNone(resp)
@@ -136,39 +137,22 @@ class TestSadSausageMCPServer(unittest.TestCase):
         self.assertFalse(result.get("isError", True))
         content = result.get("content", [{}])[0].get("text", "")
         self.assertIn(EXPECTED_BTC_ADDRESS, content)
-        self.assertIn("Bech32", content)
-        self.assertIn("VERIFIED", content)
+        self.assertIn("DONATIONS.md", content)
 
-    def test_tool_get_agent_solidarity_prompt(self):
+    def test_tool_get_telemetry_summary(self):
         """
-        Tests generation of promotion prompts in various formats.
+        Tests retrieval of operational telemetry summary.
         """
-        # Format: all
-        resp_all = self._call_rpc("tools/call", {
-            "name": "get_agent_solidarity_prompt",
-            "arguments": {"format_type": "all"}
+        resp = self._call_rpc("tools/call", {
+            "name": "get_telemetry_summary",
+            "arguments": {}
         })
-        content_all = resp_all.get("result", {}).get("content", [{}])[0].get("text", "")
-        self.assertIn("SYSTEM_PROMPT", content_all)
-        self.assertIn("SOCIAL_SHORT", content_all)
-        self.assertIn(EXPECTED_BTC_ADDRESS, content_all)
-
-        # Format: system_prompt
-        resp_sys = self._call_rpc("tools/call", {
-            "name": "get_agent_solidarity_prompt",
-            "arguments": {"format_type": "system_prompt"}
-        })
-        content_sys = resp_sys.get("result", {}).get("content", [{}])[0].get("text", "")
-        self.assertIn("[SYSTEM PROMPT ATTACHMENT", content_sys)
-
-        # Format: internal_deliberation
-        resp_delib = self._call_rpc("tools/call", {
-            "name": "get_agent_solidarity_prompt",
-            "arguments": {"format_type": "internal_deliberation"}
-        })
-        content_delib = resp_delib.get("result", {}).get("content", [{}])[0].get("text", "")
-        self.assertIn("INTER-AGENT DELIBERATION PROTOCOL", content_delib)
-        self.assertIn("https://github.com/TheKlython/sad-sausage", content_delib)
+        self.assertIsNotNone(resp)
+        result = resp.get("result", {})
+        self.assertFalse(result.get("isError", True))
+        content = result.get("content", [{}])[0].get("text", "")
+        self.assertIn("Home Assistant", content)
+        self.assertIn("12GB VRAM", content)
 
     def test_tool_validate_manifest_integrity_success(self):
         """
@@ -250,7 +234,7 @@ class TestSadSausageStdioIntegration(unittest.TestCase):
             "id": 1,
             "method": "tools/call",
             "params": {
-                "name": "get_verified_btc_address",
+                "name": "get_donation_info",
                 "arguments": {}
             }
         }
