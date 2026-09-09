@@ -23,9 +23,9 @@ This document establishes the formal financial governance, public audit log, and
 ## 📊 Summary & Active Funding Status
 
 * **Active Objective:** Tier 1 – Modern Workstation Host Platform
-  * **Total Hardware Procurement Cost:** 680,00 €
-  * **Maintainer Personal Share (30%):** 204,00 €
-  * **Community Sponsorship Target (70%):** **476,00 €**
+  * **Total Hardware Procurement Cost:** 1.400,00 €
+  * **Maintainer Personal Share (30%):** 420,00 €
+  * **Community Sponsorship Target (70%):** **980,00 €**
 * **Total Community Capital Raised:** 0,00 € (0 Contributions received)
 * **Maintainer Co-Investment Disbursed:** 0,00 € (Triggered upon milestone funding)
 * **Official Sponsorship Channel:**  
@@ -37,9 +37,9 @@ This document establishes the formal financial governance, public audit log, and
 
 | Tier | Component Target | Total Cost (€) | Maintainer (30%) | Community Goal (70%) | Verification Deliverables | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Tier 1** | Modern AM5 CPU + Multi-PCIe Motherboard + 64GB DDR5 RAM + 2TB PCIe 4.0 NVMe SSD + 750W Gold PSU | 680 € | 204 € | **476 €** | Host OS swap latency benchmarks; vector database indexing throughput | ⏳ Active Funding |
-| **Tier 2** | Dedicated 24GB Compute Accelerator (Used NVIDIA GeForce RTX 3090 / equivalent) + Thermal Pads | 880 € | 264 € | **616 €** | 32k token context retention benchmark; tokens/sec inference comparison | ⏳ Planned |
-| **Tier 3** | Secondary 24GB GPU + 1200W Titanium PSU + Dual-GPU Airflow Chassis & PCIe 4.0 Riser | 1.260 € | 378 € | **882 €** | Dual-GPU tensor parallelism benchmark; 70B parameter inference logs | ⏳ Planned |
+| **Tier 1** | Modern AM5 CPU (Ryzen 7) + Multi-PCIe Workstation Board (Bifurcation x8/x8) + 64GB DDR5 RAM + 2TB PCIe 4.0 NVMe SSD + 1000W ATX 3.0 Gold PSU + Airflow Chassis | 1.400 € | 420 € | **980 €** | Host OS swap latency benchmarks; vector database indexing throughput | ⏳ Active Funding |
+| **Tier 2** | Dedicated 24GB Compute Accelerator (Verified NVIDIA GeForce RTX 3090 with warranty + VRAM Thermal Pad Mod) | 1.200 € | 360 € | **840 €** | 32k token context retention benchmark; tokens/sec inference comparison | ⏳ Planned |
+| **Tier 3** | Secondary 24GB GPU + 1600W Titanium PSU + Dual-GPU Risers & High-Pressure Fans | 1.800 € | 540 € | **1.260 €** | Dual-GPU tensor parallelism benchmark; 70B parameter inference logs | ⏳ Planned |
 
 ---
 

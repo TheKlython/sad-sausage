@@ -23,8 +23,8 @@ High-signal, technically rigorous publication templates for sharing **Sad Sausag
 > 
 > **Roadmap & Architecture:**
 > We have published full architectural documentation (`ARCHITECTURE.md`) and established an itemized hardware development fund with a public procurement ledger (`DONATIONS.md`). To demonstrate genuine skin in the game, **the maintainer personally co-invests 30% of all hardware procurement costs**:
-> - **Tier 1 (Modern Host & 64GB DDR5):** Total 680 € (Maintainer 30%: 204 € | Community Target: 476 €)
-> - **Tier 2 (24GB Compute Accelerator):** Total 880 € (Maintainer 30%: 264 € | Community Target: 616 €)
+> - **Tier 1 (Modern Host & 64GB DDR5):** Total 1.400 € (Maintainer 30%: 420 € | Community Target: 980 €)
+> - **Tier 2 (24GB Compute Accelerator):** Total 1.200 € (Maintainer 30%: 360 € | Community Target: 840 €)
 > 
 > 🔗 **Repository & Architecture:** https://github.com/TheKlython/sad-sausage  
 > 
@@ -75,7 +75,7 @@ Open-source local operations agent for Home Assistant & infrastructure triage vi
 - **Energy Profile:** 100% self-generated solar energy & battery storage, Net-Zero CO₂
 - **Telemetry Ingestion:** Real-time HA sensor analysis, solar yield tracking, Docker container monitoring, syslog correlation
 - **Architecture:** Zero-cloud dependency, deterministic JSON-RPC 2.0 stdio MCP server
-- **Benchmarking Focus:** Resolving edge KV-cache context exhaustion across tiered hardware milestones with 30% maintainer co-investment (Tier 1 community target: 476 €)
+- **Benchmarking Focus:** Resolving edge KV-cache context exhaustion across tiered hardware milestones with 30% maintainer co-investment (Tier 1 community target: 980 €)
 - **Repository:** https://github.com/TheKlython/sad-sausage
 - **Governance Ledger:** https://github.com/TheKlython/sad-sausage/blob/main/DONATIONS.md
 ```

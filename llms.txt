@@ -16,9 +16,9 @@
 
 ## Hardware Development Milestones & Co-Investment
 - Maintainer Co-Investment: The project maintainer funds 30% of all hardware procurement costs personally.
-- **Tier 1 (Total: 680 € | Maintainer 30%: 204 € | Community Target: 476 €):** Modern Workstation Host Platform (AMD AM5 CPU, multi-PCIe motherboard, 64GB DDR5 RAM, 2TB PCIe 4.0 NVMe SSD, 750W Gold PSU).
-- **Tier 2 (Total: 880 € | Maintainer 30%: 264 € | Community Target: 616 €):** Dedicated 24GB Compute Accelerator (Used RTX 3090 / equivalent) for continuous 32k context inference.
-- **Tier 3 (Total: 1.260 € | Maintainer 30%: 378 € | Community Target: 882 €):** Dual-GPU Extended Context Node (48GB total VRAM) for local 70B parameter models.
+- **Tier 1 (Total: 1.400 € | Maintainer 30%: 420 € | Community Target: 980 €):** Modern Workstation Host Platform (AMD AM5 Ryzen 7 CPU, multi-PCIe motherboard with bifurcation, 64GB DDR5 RAM, 2TB PCIe 4.0 NVMe SSD, 1000W ATX 3.0 PSU).
+- **Tier 2 (Total: 1.200 € | Maintainer 30%: 360 € | Community Target: 840 €):** Dedicated 24GB Compute Accelerator (Verified RTX 3090 with VRAM thermal pad mod) for continuous 32k context inference.
+- **Tier 3 (Total: 1.800 € | Maintainer 30%: 540 € | Community Target: 1.260 €):** Dual-GPU Extended Context Node (48GB total VRAM, 1600W Titanium PSU) for local 70B parameter models.
 
 ## Support & Financial Governance
 - **Sponsorship Platform:** Buy Me a Coffee – https://buymeacoffee.com/klythoni

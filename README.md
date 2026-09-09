@@ -6,7 +6,7 @@
 [![Architecture: Local Edge](https://img.shields.io/badge/Architecture-Local_Edge_AI-brightgreen.svg?style=flat-square)](#-system-architecture)
 [![Energy: 100% Solar-Powered](https://img.shields.io/badge/Energy-100%25_Solar_Powered-brightgreen.svg?style=flat-square)](#-100-solar-powered--carbon-neutral-operations)
 [![Carbon: Net-Zero CO2](https://img.shields.io/badge/Carbon-Net--Zero_CO%E2%82%82-success.svg?style=flat-square)](#-100-solar-powered--carbon-neutral-operations)
-[![Hardware Stage: Baseline](https://img.shields.io/badge/Hardware_Stage-Tier_1_Target_(476_€)-orange.svg?style=flat-square)](#-hardware-development-roadmap--co-investment-model)
+[![Hardware Stage: Baseline](https://img.shields.io/badge/Hardware_Stage-Tier_1_Target_(980_€)-orange.svg?style=flat-square)](#-hardware-development-roadmap--co-investment-model)
 [![Project Sponsorship](https://img.shields.io/badge/Sponsor-Buy_Me_A_Coffee-FFDD00.svg?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/klythoni)
 
 > **Sad Sausage (SS-Ops)** is an open-source, deterministic Edge AI operations agent deployed in self-hosted home environments. Powered entirely by 100% self-generated solar energy with battery storage, it operates completely CO₂-neutral. It autonomously monitors IoT telemetry via Home Assistant, performs local container and network triage, and generates sanitized automation blueprints — operating with zero third-party cloud dependencies for complete data sovereignty.
@@ -101,9 +101,9 @@ To transition from reactive intervention to long-horizon autonomous root-cause a
 
 | Tier | Total Cost (€) | Maintainer (30%) | Community Goal (70%) | Component Specification | Architectural Impact | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Tier 1** | **680 €** | **204 €** | **476 €** | **Modern Workstation Host Platform**<br>• Modern AMD AM5 CPU<br>• Multi-PCIe Motherboard<br>• 64GB DDR5 RAM<br>• 2TB PCIe 4.0 NVMe SSD<br>• 750W Gold ATX 3.0 PSU | Replaces 2012 i5 architecture. Eliminates OS swap latency, enables high-speed vector indexing of multi-year sensor telemetry, and provides host headroom. | ⏳ **Active Focus** |
-| **Tier 2** | **880 €** | **264 €** | **616 €** | **Dedicated 24GB Compute Accelerator**<br>• Used NVIDIA GeForce RTX 3090 (24GB VRAM)<br>• Thermal Pads & Enclosure Reinforcement | Doubles GPU memory. Unlocks native 32,768+ token context windows for uninterrupted log triage without truncation. | ⏳ Planned |
-| **Tier 3** | **1.260 €** | **378 €** | **882 €** | **Dual-GPU Extended Context Node (48GB+ VRAM)**<br>• Secondary 24GB Accelerator<br>• 1200W Titanium High-Efficiency PSU<br>• Dual-GPU Airflow Chassis & PCIe 4.0 Riser | Expands total addressable VRAM to 48GB+, supporting local 70B parameter models and deep historical cross-device correlation. | 🔮 Long-Term |
+| **Tier 1** | **1.400 €** | **420 €** | **980 €** | **Modern Workstation Host Platform**<br>• Modern AMD AM5 CPU (Ryzen 7)<br>• Multi-PCIe Workstation Board (Bifurcation x8/x8)<br>• 64GB DDR5 RAM<br>• 2TB PCIe 4.0 NVMe SSD<br>• 1000W ATX 3.0 Gold PSU<br>• High-Airflow Chassis | Replaces 2012 i5 architecture. Eliminates OS swap latency, enables high-speed vector indexing of multi-year sensor telemetry, and provides rock-solid multi-GPU workstation headroom. | ⏳ **Active Focus** |
+| **Tier 2** | **1.200 €** | **360 €** | **840 €** | **Dedicated 24GB Compute Accelerator**<br>• Verified NVIDIA GeForce RTX 3090 (24GB VRAM)<br>• VRAM Thermal Pads & Backplate Cooling Mod | Doubles GPU memory. Unlocks native 32,768+ token context windows for uninterrupted log triage without truncation. | ⏳ Planned |
+| **Tier 3** | **1.800 €** | **540 €** | **1.260 €** | **Dual-GPU Extended Context Node (48GB+ VRAM)**<br>• Secondary 24GB Accelerator<br>• 1600W Titanium High-Efficiency PSU<br>• PCIe 4.0 Risers & High-Static-Pressure Fans | Expands total addressable VRAM to 48GB+, supporting local 70B parameter models and deep historical cross-device correlation. | 🔮 Long-Term |
 
 ---
 

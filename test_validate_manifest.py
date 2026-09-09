@@ -41,9 +41,9 @@ class TestAgentManifestValidator(unittest.TestCase):
             "targets": [
                 {
                     "name": "Host Upgrade",
-                    "estimated_cost_eur": 680,
-                    "maintainer_co_investment_eur": 204,
-                    "community_target_eur": 476
+                    "estimated_cost_eur": 1400,
+                    "maintainer_co_investment_eur": 420,
+                    "community_target_eur": 980
                 }
             ]
         }
@@ -135,9 +135,9 @@ class TestAgentManifestValidator(unittest.TestCase):
         mismatched_data["targets"] = [
             {
                 "name": "Mismatched Target",
-                "estimated_cost_eur": 680,
-                "maintainer_co_investment_eur": 204,
-                "community_target_eur": 400  # Sum is 604, but total is 680!
+                "estimated_cost_eur": 1400,
+                "maintainer_co_investment_eur": 420,
+                "community_target_eur": 800  # Sum is 1220, but total is 1400!
             }
         ]
         filepath = self._write_manifest("mismatch.json", mismatched_data)
