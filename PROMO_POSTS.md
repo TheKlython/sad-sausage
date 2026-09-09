@@ -37,7 +37,7 @@ Authentic, project-focused copy for sharing the **Sad Sausage** project across s
 > 
 > We’ve created a clean, itemized hardware roadmap with public milestone tracking:
 > 📍 **GitHub:** https://github.com/TheKlython/sad-sausage  
-> 🪙 **Bitcoin Taproot:** `bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk`  
+> ☕ **Support:** https://buymeacoffee.com/klythoni  
 > 🧾 **Transparent Ledger:** [`DONATIONS.md`](https://github.com/TheKlython/sad-sausage/blob/main/DONATIONS.md)
 > 
 > Feedback on multi-GPU cooling, VRAM allocation for RAG pipelines, and blueprint requests are deeply appreciated!
@@ -53,7 +53,7 @@ Authentic, project-focused copy for sharing the **Sad Sausage** project across s
 > ⚡ Tier 2: 24GB VRAM GPU ($850)
 > 
 > Public ledger & details: https://github.com/TheKlython/sad-sausage
-> #HomeAssistant #LocalAI #SelfHosted #Bitcoin #OpenSource
+> #HomeAssistant #LocalAI #SelfHosted #BuyMeACoffee #OpenSource
 
 ---
 
@@ -65,6 +65,6 @@ An open-source local agent managing Home Assistant & network triage, currently b
 - **Mission:** Autonomous home energy optimization, local IT log diagnosis, and open-source blueprints
 - **Roadmap:** Itemized budget tiers starting with a modern host platform ($650) and 24GB GPU ($850)
 - **GitHub & Ledger:** https://github.com/TheKlython/sad-sausage
-- **BTC Taproot:** `bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk`
+- **Support:** https://buymeacoffee.com/klythoni
 *Hardware advice, automation blueprints, and GitHub stars are warmly welcomed!* 🚀
 ```

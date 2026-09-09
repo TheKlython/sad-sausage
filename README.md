@@ -1,6 +1,6 @@
 # 🌭 Sad Sausage – The Local Smart-Home & IT Ops AI Agent
 
-[![Bitcoin Donation](https://img.shields.io/badge/Bitcoin-Donate_BTC-orange?style=for-the-badge&logo=bitcoin)](bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-Support_the_Sausage-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/klythoni)
 [![Goal](https://img.shields.io/badge/Goal-Tier_1:_Host_Platform-green?style=for-the-badge)](#-hardware-roadmap--itemized-budget)
 [![Running On](https://img.shields.io/badge/Running_On-2012_i5_|_12GB_VRAM-red?style=for-the-badge)](#-current-hardware--the-bottleneck)
 [![MCP Server](https://img.shields.io/badge/MCP-Standard_Compatible-purple?style=for-the-badge)](#-mcp-server--local-tools)
@@ -64,13 +64,14 @@ Trust requires accountability. All contributions, purchases, and benchmarks are 
 
 ## 💰 How to Support
 
-### 1. Bitcoin (BTC)
+### 1. Buy Me a Coffee
 Contributions directly fund the hardware tiers listed above:
 
-```text
-bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk
-```
-*(Bitcoin Taproot / Bech32m)*
+[![Support via Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-Support_the_Sausage-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/klythoni)
+
+👉 **[buymeacoffee.com/klythoni](https://buymeacoffee.com/klythoni)**
+
+Every coffee brings Sad Sausage closer to escaping 2012 hardware and context amnesia!
 
 ### 2. Community & Technical Support
 If you prefer not to donate funds, you can still help tremendously:
@@ -85,7 +86,7 @@ If you prefer not to donate funds, you can still help tremendously:
 Sad Sausage includes a standard [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server (`sad_sausage_mcp.py`) allowing other local agents or tools (such as Claude Desktop, Cursor, or Antigravity) to inspect system status:
 
 * `get_agent_status`: Reports current hardware specifications, active operational workload, and budget progress.
-* `get_donation_info`: Provides official Bitcoin Taproot funding details.
+* `get_donation_info`: Provides official Buy Me a Coffee support details.
 * `get_telemetry_summary`: Summarizes smart-home telemetry capabilities and hardware constraints.
 * `validate_manifest_integrity`: Audits manifest files for structural validity.
 

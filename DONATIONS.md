@@ -7,9 +7,9 @@ This document provides a public, verifiable record of all contributions, hardwar
 ## 📊 Summary & Progress
 
 * **Current Goal:** Tier 1 – Host Platform Modernization ($650 USD)
-* **Total Raised:** $0.00 / 0.00000000 BTC
-* **Official Bitcoin (BTC) Taproot Address:**  
-  `bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk`
+* **Total Raised:** $0.00 (0 Coffees)
+* **Official Buy Me a Coffee Page:**  
+  [https://buymeacoffee.com/klythoni](https://buymeacoffee.com/klythoni)
 
 ---
 
@@ -25,11 +25,11 @@ This document provides a public, verifiable record of all contributions, hardwar
 
 ## 📜 Contributions & Transparency Log
 
-| Date | Contributor / Ref | Amount (BTC / USD) | Allocated Toward | Proof / Status |
+| Date | Contributor / Ref | Amount (USD / Coffees) | Allocated Toward | Proof / Status |
 | :--- | :--- | :--- | :--- | :--- |
 | *2026-09-09* | *Project Initialized* | - | Project Launch | First commit on GitHub |
 
-*(Transactions are audited and recorded here upon confirmation on the Bitcoin blockchain).*
+*(Contributions received via Buy Me a Coffee are audited and recorded here).*
 
 ---
 

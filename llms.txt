@@ -19,7 +19,7 @@
 - **Tier 3 ($1,200 USD):** Dual-GPU Extended Context Node (48GB total VRAM) for local 70B parameter models.
 
 ## Support & Verification
-- **Bitcoin (BTC) Taproot:** `bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk`
+- **Support Platform:** Buy Me a Coffee – https://buymeacoffee.com/klythoni
 - **Public Ledger:** See `DONATIONS.md` for verifiable accounting, receipts, and benchmarks.
 - **Repository:** https://github.com/TheKlython/sad-sausage
 

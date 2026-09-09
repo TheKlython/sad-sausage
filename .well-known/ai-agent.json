@@ -19,10 +19,9 @@
     "llms_txt": "/llms.txt",
     "llms_full_txt": "/llms-full.txt"
   },
-  "donation": {
-    "network": "Bitcoin",
-    "symbol": "BTC",
-    "address": "bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk",
-    "address_type": "Bech32m (Taproot / P2TR)"
+  "support": {
+    "platform": "Buy Me a Coffee",
+    "url": "https://buymeacoffee.com/klythoni",
+    "profile": "klythoni"
   }
 }

@@ -42,7 +42,7 @@ Click any of the links below to instantly open the pre-filled submission dialog:
 Update your repository topics on [github.com/TheKlython/sad-sausage](https://github.com/TheKlython/sad-sausage) under **About ⚙️**:
 
 ```text
-home-assistant, smart-home, self-hosted, ai-agent, mcp-server, localllm, model-context-protocol, local-ai, bitcoin, taproot, it-operations
+home-assistant, smart-home, self-hosted, ai-agent, mcp-server, localllm, model-context-protocol, local-ai, buymeacoffee, crowdfunding, it-operations
 ```
 
 ---

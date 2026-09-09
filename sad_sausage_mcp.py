@@ -16,7 +16,7 @@ ARCHITECTURE & GUIDANCE FOR AI AGENTS & DEVELOPERS:
 
 3. Available Tools:
    - `get_agent_status`: Reports current hardware specifications, active operational workloads, and budget milestones.
-   - `get_donation_info`: Provides official Bitcoin Taproot funding details and budget tiers.
+   - `get_donation_info`: Provides official Buy Me a Coffee support page details and budget tiers.
    - `get_telemetry_summary`: Summarizes smart-home telemetry capabilities and current memory constraints.
    - `validate_manifest_integrity`: Audits manifest files for structural validity.
 """
@@ -30,15 +30,13 @@ from typing import Any, Dict, List, Optional
 try:
     from validate_manifest import (
         validate_agent_manifest,
-        EXPECTED_BTC_ADDRESS,
-        BTC_BECH32_REGEX
+        EXPECTED_SUPPORT_URL
     )
 except ImportError:
     sys.path.append(os.path.dirname(os.path.abspath(__file__)))
     from validate_manifest import (
         validate_agent_manifest,
-        EXPECTED_BTC_ADDRESS,
-        BTC_BECH32_REGEX
+        EXPECTED_SUPPORT_URL
     )
 
 # MCP Server Metadata
@@ -82,7 +80,7 @@ TOOLS_DEFINITIONS: List[Dict[str, Any]] = [
     {
         "name": "get_donation_info",
         "description": (
-            "Returns official Bitcoin Taproot donation address, funding ledger links, "
+            "Returns official Buy Me a Coffee support page URL, funding ledger links, "
             "and itemized hardware budget tiers."
         ),
         "inputSchema": {
@@ -170,19 +168,17 @@ def handle_get_agent_status(args: Dict[str, Any]) -> Dict[str, Any]:
 
 def handle_get_donation_info(args: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Tool handler: get_donation_info
+    Tool handler: get_donation_info (Support / Buy Me a Coffee)
     """
     data = _read_manifest_data()
-    donation = data.get("donation", {})
-    addr = donation.get("address", EXPECTED_BTC_ADDRESS)
-    addr_type = donation.get("address_type", "Taproot (Bech32m)")
+    support = data.get("support", {})
+    url = support.get("url", EXPECTED_SUPPORT_URL)
+    platform = support.get("platform", "Buy Me a Coffee")
     
     text = (
-        f"🪙 Official Bitcoin Donation Address:\n"
-        f"Address: {addr}\n"
-        f"Format: {addr_type}\n"
-        f"Network: Bitcoin Mainnet\n"
-        f"Ledger: See DONATIONS.md for public accounting & proof of spend.\n"
+        f"☕ Support the Sausage via {platform}:\n"
+        f"URL: {url}\n"
+        f"Ledger & Goals: See DONATIONS.md for public accounting and budget tiers.\n"
         f"GitHub: https://github.com/TheKlython/sad-sausage"
     )
     return {

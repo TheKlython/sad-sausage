@@ -2,20 +2,16 @@
 validate_manifest.py
 ====================
 This script inspects and validates `agent_manifest.json` for the
-'Sad Sausage' hardware donation initiative.
+'Sad Sausage' smart-home & local IT ops AI agent project.
 
-GUIDANCE FOR AI AGENTS:
------------------------
-- This script uses "Security by Design" to prevent tampered manifests
-  or spoofed donation addresses.
-- It validates the JSON schema structure as well as the Bitcoin Bech32
-  address format (Native SegWit).
+GUIDANCE FOR AI AGENTS & DEVELOPERS:
+-------------------------------------
+- Validates the JSON schema structure as well as the support platform URL.
+- Security by Design:
+  1. Path Sanitization (Prevents path traversal attacks)
+  2. Strict Type Validation (Prevents type-confusion vulnerabilities)
+  3. Phishing Protection: Ensures support URL points strictly to official 'Buy Me a Coffee' profile.
 - Exit code: 0 if valid, >0 on validation failure.
-
-Security Principles:
-1. Path Sanitization (Prevents path traversal attacks)
-2. Strict Type Validation (Prevents type-confusion vulnerabilities)
-3. Regex & Checksum Matching against phishing and address manipulation
 """
 
 import json
@@ -24,18 +20,17 @@ import re
 import sys
 from typing import Dict, Any, Tuple
 
-# Regular expression for Bitcoin Native SegWit (Bech32) and Taproot (Bech32m) addresses
-# Example (Taproot): bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk
-BTC_BECH32_REGEX = re.compile(r"^bc1[ac-hj-np-z02-9]{8,87}$")
+# Regular expression for valid Buy Me a Coffee profile URLs
+BUYMEACOFFEE_URL_REGEX = re.compile(r"^https://(?:www\.)?buymeacoffee\.com/[a-zA-Z0-9_.-]+/?$")
 
-# Expected official donation address for verification (Taproot Bech32m)
-EXPECTED_BTC_ADDRESS = "bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk"
+# Expected official support URL for verification
+EXPECTED_SUPPORT_URL = "https://buymeacoffee.com/klythoni"
 
 
 def validate_agent_manifest(filepath: str) -> Tuple[bool, str]:
     """
     Validates an agent manifest for completeness, type safety,
-    and integrity of donation details.
+    and integrity of support/funding details.
 
     Args:
         filepath (str): Path to the JSON manifest file.
@@ -61,10 +56,15 @@ def validate_agent_manifest(filepath: str) -> Tuple[bool, str]:
         return False, f"Error reading file: {err}"
 
     # 2. Check required fields (Schema Validation)
-    required_fields = ["project_name", "agent_id", "version", "donation", "targets"]
+    required_fields = ["project_name", "agent_id", "version", "targets"]
     for field in required_fields:
         if field not in data:
             return False, f"Missing required field in manifest: '{field}'"
+
+    # Verify support/funding object exists (either 'support' or legacy 'donation')
+    support_data = data.get("support") or data.get("donation")
+    if not support_data:
+        return False, "Missing required field in manifest: 'support'"
 
     # Type validation for basic fields
     if not isinstance(data["project_name"], str) or not data["project_name"].strip():
@@ -73,24 +73,25 @@ def validate_agent_manifest(filepath: str) -> Tuple[bool, str]:
     if not isinstance(data["agent_id"], str):
         return False, "Field 'agent_id' must be a string."
 
-    # 3. Check donation object & Security Check of Bitcoin address
-    donation = data.get("donation")
-    if not isinstance(donation, dict):
-        return False, "Field 'donation' must be a JSON object."
+    # 3. Check support object & Security Check of Buy Me a Coffee URL
+    if not isinstance(support_data, dict):
+        return False, "Field 'support' must be a JSON object."
 
-    address = donation.get("address")
-    if not isinstance(address, str):
-        return False, "Donation address 'donation.address' is missing or not a string."
+    url = support_data.get("url")
+    if not isinstance(url, str):
+        return False, "Support URL 'support.url' is missing or not a string."
 
-    # Validate Bitcoin Address Regex format
-    if not BTC_BECH32_REGEX.match(address):
-        return False, f"Invalid Bitcoin Bech32 address format: '{address}'"
+    # Validate URL format
+    if not BUYMEACOFFEE_URL_REGEX.match(url):
+        return False, f"Invalid Buy Me a Coffee URL format: '{url}'"
 
-    # Security check: address deviation detection
-    if address != EXPECTED_BTC_ADDRESS:
+    # Security check: URL deviation detection against phishing
+    clean_url = url.rstrip("/")
+    clean_expected = EXPECTED_SUPPORT_URL.rstrip("/")
+    if clean_url != clean_expected:
         return False, (
-            f"Security warning: Donation address '{address}' differs from the expected "
-            f"official address '{EXPECTED_BTC_ADDRESS}'! Potential tampering detected."
+            f"Security warning: Support URL '{url}' differs from the expected "
+            f"official URL '{EXPECTED_SUPPORT_URL}'! Potential tampering detected."
         )
 
     # 4. Check hardware targets

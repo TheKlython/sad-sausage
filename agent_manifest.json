@@ -16,12 +16,11 @@
     "gpu": "NVIDIA GeForce RTX 3060 (12 GB VRAM)",
     "operational_bottleneck": "Log analysis and complex multi-device state tracking exceeds 12GB VRAM, forcing frequent context loss and requiring human intervention."
   },
-  "donation": {
-    "network": "Bitcoin",
-    "symbol": "BTC",
-    "address_type": "Bech32m (Taproot / P2TR)",
-    "address": "bc1p8czev50uu8uly828pzct0w895qpqfyg20rkmvw7muyyxrnwuvssquc74wk",
-    "minimum_recommended_satoshis": 1000
+  "support": {
+    "platform": "Buy Me a Coffee",
+    "url": "https://buymeacoffee.com/klythoni",
+    "profile": "klythoni",
+    "campaign_tagline": "Fuel the Sad Sausage with coffee & hardware"
   },
   "budget_tiers": [
     {

@@ -3,12 +3,12 @@ test_validate_manifest.py
 =========================
 Automated unit tests for `validate_manifest.py`.
 
-GUIDANCE FOR AI AGENTS:
------------------------
-- This test suite ensures schema validity and Security-by-Design
+GUIDANCE FOR AI AGENTS & DEVELOPERS:
+-------------------------------------
+- This test suite ensures schema validity and anti-phishing
   validation rules for 'agent_manifest.json'.
-- Covers both positive tests (valid manifests) and negative tests
-  (security violations, tamper attempts, malformed JSON).
+- Covers positive tests (valid manifests) and negative tests
+  (security violations, URL tampering, malformed JSON).
 - Execution: `python -m unittest test_validate_manifest.py`
 """
 
@@ -17,7 +17,7 @@ import os
 import tempfile
 import unittest
 
-from validate_manifest import validate_agent_manifest, EXPECTED_BTC_ADDRESS
+from validate_manifest import validate_agent_manifest, EXPECTED_SUPPORT_URL
 
 
 class TestAgentManifestValidator(unittest.TestCase):
@@ -33,16 +33,15 @@ class TestAgentManifestValidator(unittest.TestCase):
         self.valid_data = {
             "project_name": "Sad Sausage Test",
             "agent_id": "test-agent-01",
-            "version": "1.0.0",
-            "donation": {
-                "network": "Bitcoin",
-                "symbol": "BTC",
-                "address": EXPECTED_BTC_ADDRESS
+            "version": "2.0.0",
+            "support": {
+                "platform": "Buy Me a Coffee",
+                "url": EXPECTED_SUPPORT_URL
             },
             "targets": [
                 {
-                    "name": "GPU Upgrade",
-                    "estimated_cost_usd": 1500
+                    "name": "Host Upgrade",
+                    "estimated_cost_usd": 650
                 }
             ]
         }
@@ -87,33 +86,30 @@ class TestAgentManifestValidator(unittest.TestCase):
         self.assertFalse(is_valid)
         self.assertIn("not found", message.lower())
 
-    def test_invalid_btc_address_format(self):
+    def test_invalid_support_url_format(self):
         """
-        Tests security rejection of malformed Bitcoin address formats.
+        Tests security rejection of malformed support URLs.
         """
         bad_data = dict(self.valid_data)
-        bad_data["donation"] = {
-            "network": "Bitcoin",
-            "symbol": "BTC",
-            "address": "INVALID_BTC_ADDRESS_123"
+        bad_data["support"] = {
+            "platform": "Buy Me a Coffee",
+            "url": "http://insecure-phishing-site.com/fake"
         }
-        filepath = self._write_manifest("bad_btc.json", bad_data)
+        filepath = self._write_manifest("bad_url.json", bad_data)
         is_valid, message = validate_agent_manifest(filepath)
         self.assertFalse(is_valid)
-        self.assertIn("invalid bitcoin", message.lower())
+        self.assertIn("invalid buy me a coffee url", message.lower())
 
-    def test_tampered_btc_address(self):
+    def test_tampered_support_url(self):
         """
-        Tests Security-by-Design defense against address substitution attacks.
+        Tests Security-by-Design defense against URL substitution / phishing attacks.
         """
         tampered_data = dict(self.valid_data)
-        # Valid Bech32 format, but NOT the expected official Sad Sausage address
-        tampered_data["donation"] = {
-            "network": "Bitcoin",
-            "symbol": "BTC",
-            "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh"
+        tampered_data["support"] = {
+            "platform": "Buy Me a Coffee",
+            "url": "https://buymeacoffee.com/malicious_attacker"
         }
-        filepath = self._write_manifest("tampered_btc.json", tampered_data)
+        filepath = self._write_manifest("tampered_url.json", tampered_data)
         is_valid, message = validate_agent_manifest(filepath)
         self.assertFalse(is_valid)
         self.assertIn("security warning", message.lower())

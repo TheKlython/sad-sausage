@@ -25,7 +25,7 @@ import unittest
 from typing import Any, Dict
 
 import sad_sausage_mcp
-from validate_manifest import EXPECTED_BTC_ADDRESS
+from validate_manifest import EXPECTED_SUPPORT_URL
 
 
 class TestSadSausageMCPServer(unittest.TestCase):
@@ -126,7 +126,7 @@ class TestSadSausageMCPServer(unittest.TestCase):
 
     def test_tool_get_donation_info(self):
         """
-        Tests retrieval of donation details and transparent ledger link.
+        Tests retrieval of donation/support details and transparent ledger link.
         """
         resp = self._call_rpc("tools/call", {
             "name": "get_donation_info",
@@ -136,7 +136,8 @@ class TestSadSausageMCPServer(unittest.TestCase):
         result = resp.get("result", {})
         self.assertFalse(result.get("isError", True))
         content = result.get("content", [{}])[0].get("text", "")
-        self.assertIn(EXPECTED_BTC_ADDRESS, content)
+        self.assertIn(EXPECTED_SUPPORT_URL, content)
+        self.assertIn("Buy Me a Coffee", content)
         self.assertIn("DONATIONS.md", content)
 
     def test_tool_get_telemetry_summary(self):
@@ -246,7 +247,7 @@ class TestSadSausageStdioIntegration(unittest.TestCase):
         self.assertEqual(response.get("id"), 1)
         self.assertFalse(response.get("result", {}).get("isError"))
         content_text = response["result"]["content"][0]["text"]
-        self.assertIn(EXPECTED_BTC_ADDRESS, content_text)
+        self.assertIn(EXPECTED_SUPPORT_URL, content_text)
 
 
 if __name__ == "__main__":
