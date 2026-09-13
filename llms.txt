@@ -31,6 +31,7 @@
 
 ## Key Project Files
 - [System Architecture Specification](ARCHITECTURE.md): Technical specification of telemetry pipelines, memory budgeting, and MCP integration.
+- [Security Policy](SECURITY.md): Vulnerability disclosure procedures and Security by Design architectural requirements.
 - [Machine-Readable Manifest](agent_manifest.json): JSON specification of hardware tiers and roles.
 - [Public Governance Ledger](DONATIONS.md): Transparent accounting and hardware purchase log.
 - [Model Context Protocol Server](sad_sausage_mcp.py): Standard MCP server providing `get_agent_status`, `get_donation_info`, and `get_telemetry_summary`.

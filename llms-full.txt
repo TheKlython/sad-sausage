@@ -63,6 +63,7 @@ All contributions and expenditures are documented in `DONATIONS.md`:
 
 * **Sponsorship Platform:** [Buy Me a Coffee](https://buymeacoffee.com/klythoni) – `https://buymeacoffee.com/klythoni`
 * **Architecture Specification:** [`ARCHITECTURE.md`](ARCHITECTURE.md)
+* **Security Policy:** [`SECURITY.md`](SECURITY.md)
 * **Financial Ledger:** [`DONATIONS.md`](DONATIONS.md)
 * **Repository:** [https://github.com/TheKlython/sad-sausage](https://github.com/TheKlython/sad-sausage)
 * **License:** [MIT License](LICENSE)
