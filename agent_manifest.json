@@ -107,6 +107,7 @@
   ],
   "links": {
     "repository": "https://github.com/TheKlython/sad-sausage",
-    "donations_ledger": "DONATIONS.md"
+    "donations_ledger": "DONATIONS.md",
+    "security_policy": "SECURITY.md"
   }
 }
