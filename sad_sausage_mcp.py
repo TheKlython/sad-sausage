@@ -41,7 +41,7 @@ except ImportError:
 
 # MCP Server Metadata
 SERVER_NAME = "sad-sausage-mcp"
-SERVER_VERSION = "2.0.0"
+SERVER_VERSION = "0.6.0"
 PROTOCOL_VERSION = "2024-11-05"
 
 # Repository Paths
