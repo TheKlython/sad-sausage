@@ -202,4 +202,5 @@ python validate_manifest.py
 ## 📄 License & Security
 
 * **License:** Distributed under the [MIT License](LICENSE).
-* **Security Policy:** All tools adhere to Security by Design principles (read-only execution, path traversal guards, URL validation). For security concerns, please open a private security advisory on GitHub.
+* **Security Policy:** All tools adhere to Security by Design principles (read-only execution, path traversal guards, URL validation). Consult [`SECURITY.md`](SECURITY.md) for our comprehensive security policy, supported versions, and vulnerability disclosure procedures.
+
