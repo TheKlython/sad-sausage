@@ -1,0 +1,531 @@
+substitutions:
+  name: "optoma-projector"
+  friendly_name: "Optoma UHZ2000"
+
+esphome:
+  name: ${name}
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+logger:
+  level: DEBUG
+  # Set baud_rate to 0 if you are using UART0 (TX GPIO1 / RX GPIO3) for the projector
+  # baud_rate: 0 
+
+api:
+  encryption:
+    key: !secret api_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "optoma-projector"
+    password: !secret fallback_ap_password
+
+captive_portal:
+
+web_server:
+  port: 80
+  auth:
+    username: admin
+    password: !secret web_server_password
+
+globals:
+  # AI-AGENT DOC: State machine for UART polling to track expected responses:
+  # 0=Idle, 1=Status (~00150 1), 2=Temp (~00150 18), 3=Serial (~00353 1)
+  # 4=Resolution (~00150 4), 5=ProjMode (~00129 1), 6=Brightness (~00125 1)
+  # 7=Contrast (~00126 1)
+  - id: current_query
+    type: int
+    initial_value: '0'
+  # AI-AGENT DOC: Boolean flag to prevent spamming static properties (e.g. Serial, Proj Mode)
+  # on every poll. Reset to false when the projector turns off.
+  - id: has_queried_static_info
+    type: bool
+    initial_value: 'false'
+
+# RS232 UART configuration (9600 Baud, 8 Data Bits, No Parity, 1 Stop Bit)
+uart:
+  id: uart_bus
+  tx_pin: GPIO17 # Adjust to your hardware setup (MAX3232 / RS232 Level Shifter TX)
+  rx_pin: GPIO16 # Adjust to your hardware setup (MAX3232 / RS232 Level Shifter RX)
+  baud_rate: 9600
+  data_bits: 8
+  parity: NONE
+  stop_bits: 1
+  debug:
+    direction: BOTH
+    dummy_receiver: true
+    after:
+      delimiter: [0x0D] # \r
+      timeout: 2000ms
+    sequence:
+      - lambda: |-
+          // 1. Convert incoming byte vector to a string and clean up trailing line breaks (\r, \n)
+          UARTDebug::log_string(direction, bytes);
+          std::string msg(bytes.begin(), bytes.end());
+          if (!msg.empty() && msg.back() == '\r') msg.pop_back();
+          if (!msg.empty() && msg.back() == '\n') msg.pop_back();
+          
+          // 2. Publish raw UART traffic to text_sensors for Home Assistant debugging
+          if (direction == esphome::uart::UARTDirection::UART_DIRECTION_RX) {
+            id(last_uart_rx).publish_state(msg);
+          } else {
+            id(last_uart_tx).publish_state(msg);
+            return; // Exit early if this is TX (we only parse RX messages below)
+          }
+          
+          // 3. AI-AGENT DOC: Handle asynchronous INFO messages pushed by the projector.
+          // These can arrive at any time, independent of our current polling state.
+          if (msg.rfind("INFO", 0) == 0) {
+            if (msg == "INFO0") id(optoma_power_state).publish_state("Standby");
+            else if (msg == "INFO1") id(optoma_power_state).publish_state("Warming");
+            else if (msg == "INFO2") id(optoma_power_state).publish_state("Cooling");
+            else if (msg == "INFO3") id(optoma_power_state).publish_state("Out of Range");
+            else if (msg == "INFO4") id(optoma_power_state).publish_state("Error - Laser");
+            else if (msg == "INFO5") id(optoma_power_state).publish_state("Thermal Error");
+            else if (msg == "INFO6") id(optoma_power_state).publish_state("FAN Locked");
+            else if (msg == "INFO7") id(optoma_power_state).publish_state("Overheat");
+            
+            id(optoma_last_state_message).publish_state(msg);
+            return;
+          }
+          
+          // 4. AI-AGENT DOC: Ignore basic command acknowledgments (Success/Failure)
+          if (msg == "P" || msg == "F") return;
+          
+          // 5. AI-AGENT DOC: Parse responses based on the current_query state machine.
+          // The projector answers with "Ok..." but doesn't tell us WHICH command it's answering.
+          if (msg.rfind("Ok", 0) == 0 || msg.rfind("OK", 0) == 0) {
+            std::string payload = msg.substr(2); // Strip the "Ok" prefix
+            
+            if (id(current_query) == 1) {
+              // Status Packet (~00150 1) parsing
+              // Newer Firmware length >= 16: Ok<power(1)><lamp(5)><source(2)><firmware(4)><display(2)>
+              if (msg.length() >= 16) {
+                char power_flag = msg[2];
+                std::string lamp_hours = msg.substr(3, 5);
+                std::string source_flag = msg.substr(8, 2);
+                std::string firmware = msg.substr(10, 4);
+                std::string display_mode = msg.substr(14, 2);
+                
+                if (power_flag == '1') id(optoma_power_state).publish_state("On");
+                else if (power_flag == '0') id(optoma_power_state).publish_state("Off");
+                
+                id(optoma_lamp_hours).publish_state(lamp_hours);
+                id(optoma_firmware_version).publish_state(firmware);
+                id(optoma_display_mode).publish_state(display_mode);
+                
+                if (source_flag == "00") id(optoma_input_source_status).publish_state("None");
+                else if (source_flag == "06") id(optoma_input_source_status).publish_state("Video");
+                else if (source_flag == "07") id(optoma_input_source_status).publish_state("HDMI 1");
+                else if (source_flag == "08") id(optoma_input_source_status).publish_state("HDMI 2");
+                else if (source_flag == "14") id(optoma_input_source_status).publish_state("HDMI 3");
+                else id(optoma_input_source_status).publish_state("Unknown (" + source_flag + ")");
+              } else if (msg.length() >= 13) {
+                // Fallback for older Firmwares (length 13): Ok<power(1)><lamp(4)><source(1)>
+                char power_flag = msg[2];
+                std::string lamp_hours = msg.substr(3, 4);
+                char source_flag = msg[7];
+                
+                if (power_flag == '1') id(optoma_power_state).publish_state("On");
+                else if (power_flag == '0') id(optoma_power_state).publish_state("Off");
+                
+                id(optoma_lamp_hours).publish_state(lamp_hours);
+                
+                switch(source_flag) {
+                  case '0': id(optoma_input_source_status).publish_state("None"); break;
+                  case '7': id(optoma_input_source_status).publish_state("HDMI 1"); break;
+                  case '8': id(optoma_input_source_status).publish_state("HDMI 2"); break;
+                  case '9': id(optoma_input_source_status).publish_state("HDMI 3"); break;
+                  case 'A': id(optoma_input_source_status).publish_state("Home"); break;
+                }
+              }
+              id(current_query) = 0; // Release state machine lock
+            }
+            else if (id(current_query) == 2) {
+              // Temperature (~00150 18)
+              float temp = atof(payload.c_str());
+              id(optoma_system_temperature).publish_state(temp);
+              id(current_query) = 0;
+            }
+            else if (id(current_query) == 3) {
+              // Serial Number (~00353 1)
+              id(optoma_serial_number).publish_state(payload);
+              id(current_query) = 0;
+            }
+            else if (id(current_query) == 4) {
+              // Resolution (~00150 4)
+              id(optoma_resolution).publish_state(payload);
+              id(current_query) = 0;
+            }
+            else if (id(current_query) == 5) {
+              // Projection Mode (~00129 1) - Map returned integer to string
+              if (payload == "0") id(optoma_projection_mode_status).publish_state("Front");
+              else if (payload == "1") id(optoma_projection_mode_status).publish_state("Rear");
+              else if (payload == "2") id(optoma_projection_mode_status).publish_state("Ceiling Front");
+              else if (payload == "3") id(optoma_projection_mode_status).publish_state("Ceiling Rear");
+              else id(optoma_projection_mode_status).publish_state(payload);
+              
+              // Also update the select component silently so UI stays in sync
+              if (payload == "0") id(optoma_projection_mode_select).publish_state("Front");
+              else if (payload == "1") id(optoma_projection_mode_select).publish_state("Rear");
+              else if (payload == "2") id(optoma_projection_mode_select).publish_state("Ceiling Front");
+              else if (payload == "3") id(optoma_projection_mode_select).publish_state("Ceiling Rear");
+              
+              id(current_query) = 0;
+            }
+            else if (id(current_query) == 6) {
+              // Brightness (~00125 1)
+              float val = atof(payload.c_str());
+              id(optoma_brightness).publish_state(val);
+              id(current_query) = 0;
+            }
+            else if (id(current_query) == 7) {
+              // Contrast (~00126 1)
+              float val = atof(payload.c_str());
+              id(optoma_contrast).publish_state(val);
+              id(current_query) = 0;
+            }
+          }
+
+switch:
+  - platform: template
+    name: "Power"
+    icon: "mdi:projector"
+    assumed_state: true
+    turn_on_action:
+      - uart.write: "~0000 1\r"
+      - logger.log: "Sent Power ON"
+    turn_off_action:
+      - uart.write: "~0000 2\r"
+      - logger.log: "Sent Power OFF"
+
+  - platform: template
+    name: "AV Mute"
+    icon: "mdi:video-off"
+    assumed_state: true
+    turn_on_action:
+      - uart.write: "~0002 1\r"
+    turn_off_action:
+      - uart.write: "~0002 2\r"
+
+  - platform: template
+    name: "Audio Mute"
+    icon: "mdi:volume-mute"
+    assumed_state: true
+    turn_on_action:
+      - uart.write: "~0003 1\r"
+    turn_off_action:
+      - uart.write: "~0003 2\r"
+
+select:
+  - platform: template
+    name: "Input Source"
+    icon: "mdi:video-input-hdmi"
+    optimistic: true
+    options:
+      - "HDMI 1"
+      - "HDMI 2"
+      - "HDMI 3"
+    set_action:
+      - if:
+          condition:
+            lambda: 'return x == "HDMI 1";'
+          then:
+            - uart.write: "~0012 1\r"
+            - logger.log: "Sent HDMI 1"
+      - if:
+          condition:
+            lambda: 'return x == "HDMI 2";'
+          then:
+            - uart.write: "~0012 15\r"
+            - logger.log: "Sent HDMI 2"
+      - if:
+          condition:
+            lambda: 'return x == "HDMI 3";'
+          then:
+            - uart.write: "~0012 16\r"
+            - logger.log: "Sent HDMI 3"
+
+  - platform: template
+    name: "Projection Mode"
+    id: optoma_projection_mode_select
+    icon: "mdi:projector-screen"
+    optimistic: true
+    options:
+      - "Front"
+      - "Rear"
+      - "Ceiling Front"
+      - "Ceiling Rear"
+    set_action:
+      - if:
+          condition:
+            lambda: 'return x == "Front";'
+          then:
+            - uart.write: "~0071 0\r"
+      - if:
+          condition:
+            lambda: 'return x == "Rear";'
+          then:
+            - uart.write: "~0071 1\r"
+      - if:
+          condition:
+            lambda: 'return x == "Ceiling Front";'
+          then:
+            - uart.write: "~0071 2\r"
+      - if:
+          condition:
+            lambda: 'return x == "Ceiling Rear";'
+          then:
+            - uart.write: "~0071 3\r"
+      - delay: 1s
+      - globals.set:
+          id: current_query
+          value: '5'
+      - uart.write: "~00129 1\r"
+
+  - platform: template
+    name: "HDR"
+    id: optoma_hdr_select
+    icon: "mdi:hdr"
+    optimistic: true
+    options:
+      - "Off"
+      - "Auto"
+    set_action:
+      - if:
+          condition:
+            lambda: 'return x == "Off";'
+          then:
+            - uart.write: "~00565 0\r"
+      - if:
+          condition:
+            lambda: 'return x == "Auto";'
+          then:
+            - uart.write: "~00565 1\r"
+
+number:
+  - platform: template
+    name: "Brightness"
+    id: optoma_brightness
+    icon: "mdi:brightness-6"
+    min_value: 0
+    max_value: 100
+    step: 1
+    optimistic: true
+    set_action:
+      - lambda: |-
+          std::string cmd = "~0021 " + to_string((int)x) + "\r";
+          id(uart_bus).write_str(cmd.c_str());
+
+  - platform: template
+    name: "Contrast"
+    id: optoma_contrast
+    icon: "mdi:contrast-circle"
+    min_value: 0
+    max_value: 100
+    step: 1
+    optimistic: true
+    set_action:
+      - lambda: |-
+          std::string cmd = "~0022 " + to_string((int)x) + "\r";
+          id(uart_bus).write_str(cmd.c_str());
+
+  - platform: template
+    name: "Sleep Timer"
+    id: optoma_sleep_timer
+    icon: "mdi:timer-sand"
+    min_value: 0
+    max_value: 990
+    step: 30
+    optimistic: true
+    set_action:
+      - lambda: |-
+          std::string cmd = "~00107 " + to_string((int)x) + "\r";
+          id(uart_bus).write_str(cmd.c_str());
+
+text:
+  - platform: template
+    name: "Custom UART Command"
+    id: custom_uart_command
+    mode: text
+    optimistic: true
+    set_action:
+      - lambda: |-
+          std::string cmd = x + "\r";
+          id(uart_bus).write_str(cmd.c_str());
+          ESP_LOGI("custom_uart", "Sent custom command: %s", x.c_str());
+
+sensor:
+  - platform: template
+    name: "Optoma System Temperature"
+    id: optoma_system_temperature
+    unit_of_measurement: "°C"
+    device_class: temperature
+    icon: "mdi:thermometer"
+
+button:
+  - platform: template
+    name: "Volume Up"
+    icon: "mdi:volume-plus"
+    on_press:
+      - uart.write: "~00140 18\r"
+
+  - platform: template
+    name: "Volume Down"
+    icon: "mdi:volume-minus"
+    on_press:
+      - uart.write: "~00140 17\r"
+
+  - platform: template
+    name: "Resync"
+    icon: "mdi:sync"
+    on_press:
+      - uart.write: "~0001 1\r"
+
+  - platform: template
+    name: "Menu"
+    icon: "mdi:menu"
+    on_press:
+      - uart.write: "~00140 20\r"
+
+  - platform: template
+    name: "Up"
+    icon: "mdi:arrow-up"
+    on_press:
+      - uart.write: "~00140 10\r"
+
+  - platform: template
+    name: "Down"
+    icon: "mdi:arrow-down"
+    on_press:
+      - uart.write: "~00140 14\r"
+
+  - platform: template
+    name: "Left"
+    icon: "mdi:arrow-left"
+    on_press:
+      - uart.write: "~00140 11\r"
+
+  - platform: template
+    name: "Right"
+    icon: "mdi:arrow-right"
+    on_press:
+      - uart.write: "~00140 13\r"
+
+  - platform: template
+    name: "Enter"
+    icon: "mdi:keyboard-return"
+    on_press:
+      - uart.write: "~00140 12\r"
+
+text_sensor:
+  - platform: template
+    name: "Optoma Power State"
+    id: optoma_power_state
+    on_value:
+      - if:
+          condition:
+            lambda: 'return x != "On";'
+          then:
+            - globals.set:
+                id: has_queried_static_info
+                value: 'false'
+  - platform: template
+    name: "Optoma Input Source Status"
+    id: optoma_input_source_status
+  - platform: template
+    name: "Optoma Lamp Hours"
+    id: optoma_lamp_hours
+  - platform: template
+    name: "Last UART RX"
+    id: last_uart_rx
+  - platform: template
+    name: "Last UART TX"
+    id: last_uart_tx
+  - platform: template
+    name: "Optoma Firmware Version"
+    id: optoma_firmware_version
+  - platform: template
+    name: "Optoma Display Mode"
+    id: optoma_display_mode
+  - platform: template
+    name: "Optoma Serial Number"
+    id: optoma_serial_number
+  - platform: template
+    name: "Optoma Resolution"
+    id: optoma_resolution
+  - platform: template
+    name: "Optoma Projection Mode Status"
+    id: optoma_projection_mode_status
+  - platform: template
+    name: "Last Optoma State Message"
+    id: optoma_last_state_message
+
+script:
+  # AI-AGENT DOC: Sequential polling script executed every 10s.
+  # Uses 'current_query' to tell the UART RX lambda which value to expect next.
+  - id: poll_projector
+    mode: single
+    then:
+      - globals.set:
+          id: current_query
+          value: '1'
+      - uart.write: "~00150 1\r"
+      - delay: 2s
+      - if:
+          condition:
+            lambda: 'return id(optoma_power_state).state == "On";'
+          then:
+            - globals.set:
+                id: current_query
+                value: '2'
+            - uart.write: "~00150 18\r"
+            - delay: 1s
+            # AI-AGENT DOC: Query static info (Serial, Proj Mode) only ONCE per power cycle
+            # to reduce UART bus traffic. Resets automatically on power-off.
+            - if:
+                condition:
+                  lambda: 'return !id(has_queried_static_info);'
+                then:
+                  - globals.set:
+                      id: current_query
+                      value: '3'
+                  - uart.write: "~00353 1\r"
+                  - delay: 1s
+                  - globals.set:
+                      id: current_query
+                      value: '5'
+                  - uart.write: "~00129 1\r"
+                  - delay: 1s
+                  - globals.set:
+                      id: has_queried_static_info
+                      value: 'true'
+            - globals.set:
+                id: current_query
+                value: '4'
+            - uart.write: "~00150 4\r"
+            - delay: 1s
+            - globals.set:
+                id: current_query
+                value: '6'
+            - uart.write: "~00125 1\r"
+            - delay: 1s
+            - globals.set:
+                id: current_query
+                value: '7'
+            - uart.write: "~00126 1\r"
+
+interval:
+  - interval: 10s
+    then:
+      - script.execute: poll_projector

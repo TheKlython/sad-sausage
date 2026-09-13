@@ -66,3 +66,18 @@ All contributions and expenditures are documented in `DONATIONS.md`:
 * **Financial Ledger:** [`DONATIONS.md`](DONATIONS.md)
 * **Repository:** [https://github.com/TheKlython/sad-sausage](https://github.com/TheKlython/sad-sausage)
 * **License:** [MIT License](LICENSE)
+
+---
+
+## 6. Open-Source Edge Hardware Showcases
+
+1. **Outage-Resilient Smart Gas Meter Tracker (`Gasmeter_ESP`):**
+   - High-reliability pulse counter for mechanical gas meters using ESP32 and OH49E Hall sensor.
+   - NVS Flash persistence prevents loss of meter state during power outages or Home Assistant downtime.
+   - Native integration with Home Assistant Energy Dashboard (`m³` and `kWh`).
+
+2. **Smart Optoma Laser Projector Controller (`Optoma UHZ ESP remote`):**
+   - Bi-directional RS232-to-WiFi controller for Optoma laser projectors using ESP32 and MAX3232 transceiver.
+   - Robust polling state machine (`current_query`) prevents UART bus saturation.
+   - Real-time fault detection (overheat, fan lock, laser fault) and full Home Assistant media remote control.
+

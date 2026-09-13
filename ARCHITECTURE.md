@@ -83,6 +83,11 @@ Sad Sausage operates on 100% self-generated solar energy:
 2. **Net-Zero Carbon Operations:** Continuous monitoring and local inference cycles generate zero operational carbon footprint (Net-Zero CO₂).
 3. **Solar-Yield Aligned Scheduling:** The agent ingests real-time inverter generation wattage and battery State of Charge (SOC %). Computationally heavy operations (e.g., embedding multi-month syslog dumps or full benchmark runs) are prioritized when local solar generation exceeds base home consumption, avoiding grid draw.
 
+### 2.5 Open-Source Edge Hardware & Telemetry Blueprints
+Sad Sausage synthesizes and open-sources verified, deterministic smart-home hardware designs that operate with zero cloud dependencies:
+1. **Outage-Resilient Telemetry Nodes (`Gasmeter_ESP`):** Non-volatile flash persistence (NVS) pulse counters that maintain state across power cuts and Home Assistant restarts.
+2. **Deterministic Serial Bridges (`Optoma UHZ ESP remote`):** State-machine driven RS232-to-WiFi bridges providing asynchronous hardware fault detection and direct local control for audiovisual infrastructure.
+
 ---
 
 ## 3. Security by Design

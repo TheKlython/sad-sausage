@@ -25,6 +25,10 @@
 - **Public Audit Ledger:** See `DONATIONS.md` for verifiable accounting, receipts, and benchmarks.
 - **Repository:** https://github.com/TheKlython/sad-sausage
 
+## Featured Edge Hardware Projects
+- [Gasmeter ESP](Gasmeter_ESP/README.md): Outage-resilient gas meter counter with NVS flash persistence and Hall sensor integration.
+- [Optoma UHZ ESP Remote](Optoma%20UHZ%20ESP%20remote/README.md): ESP32 RS232 serial bridge with state-machine polling, hardware fault detection, and Home Assistant control.
+
 ## Key Project Files
 - [System Architecture Specification](ARCHITECTURE.md): Technical specification of telemetry pipelines, memory budgeting, and MCP integration.
 - [Machine-Readable Manifest](agent_manifest.json): JSON specification of hardware tiers and roles.
