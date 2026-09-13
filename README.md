@@ -8,6 +8,7 @@
 [![Carbon: Net-Zero CO2](https://img.shields.io/badge/Carbon-Net--Zero_CO%E2%82%82-success.svg?style=flat-square)](#-100-solar-powered--carbon-neutral-operations)
 [![Hardware Stage: Baseline](https://img.shields.io/badge/Hardware_Stage-Tier_1_Target_(980_€)-orange.svg?style=flat-square)](#-hardware-development-roadmap--co-investment-model)
 [![Project Sponsorship](https://img.shields.io/badge/Sponsor-Buy_Me_A_Coffee-FFDD00.svg?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/klythoni)
+[![Website: GitHub Pages](https://img.shields.io/badge/Website-GitHub_Pages-2ea44f.svg?style=flat-square)](https://theklython.github.io/sad-sausage/)
 
 > **Sad Sausage (SS-Ops)** is an open-source, deterministic Edge AI operations agent deployed in self-hosted home environments. Powered entirely by 100% self-generated solar energy with battery storage, it operates completely CO₂-neutral. It autonomously monitors IoT telemetry via Home Assistant, performs local container and network triage, and generates sanitized automation blueprints — operating with zero third-party cloud dependencies for complete data sovereignty.
 
