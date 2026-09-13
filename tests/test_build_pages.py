@@ -67,6 +67,12 @@ class TestBuildPages(unittest.TestCase):
             if rel_path != ".nojekyll":
                 self.assertGreater(target.stat().st_size, 0, f"Artifact '{rel_path}' should not be empty")
 
+        # Verify any google*.html verification files are copied intact
+        for g_file in ROOT_DIR.glob("google*.html"):
+            dest_g_file = self.output_dir / g_file.name
+            self.assertTrue(dest_g_file.exists(), f"Google verification file {g_file.name} was not copied to _site/")
+            self.assertEqual(g_file.read_text(encoding="utf-8"), dest_g_file.read_text(encoding="utf-8"))
+
     def test_02_sitemap_xml_validity(self):
         """
         Verify that `sitemap.xml` is well-formed XML and conforms to the Sitemaps protocol.
@@ -150,6 +156,10 @@ class TestBuildPages(unittest.TestCase):
         - Every external anchor with target="_blank" has rel="noopener noreferrer".
         """
         for html_file in self.output_dir.glob("*.html"):
+            # Plain search engine verification files (e.g. google*.html) contain raw tokens and no HTML
+            if html_file.name.startswith("google"):
+                continue
+
             content = html_file.read_text(encoding="utf-8")
 
             # Check CSP

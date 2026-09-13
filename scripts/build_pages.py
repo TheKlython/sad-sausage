@@ -1054,6 +1054,11 @@ def copy_agent_manifests(root_dir: Path, output_dir: Path) -> None:
             if item.is_file():
                 shutil.copy2(item, well_known_dest / item.name)
 
+    # Search Engine verification files (Google Search Console, Bing, etc.)
+    for verify_file in root_dir.glob("google*.html"):
+        if verify_file.is_file():
+            shutil.copy2(verify_file, output_dir / verify_file.name)
+
     # .nojekyll flag
     (output_dir / ".nojekyll").write_text("", encoding="utf-8")
 
