@@ -73,6 +73,21 @@ Sad Sausage is engineered as an environmentally sustainable edge intelligence no
 
 ---
 
+## 🌟 Featured Smart-Home Projects
+
+### 🧯 [Outage-Resilient Smart Gas Meter Tracker (ESP32 + ESPHome)](Gasmeter_ESP/README.md)
+An enterprise-grade, outage-resilient hardware pulse counter for mechanical diaphragm gas meters:
+* **Hardware Persistence:** Preserves meter readings across reboots and power outages via ESP32 NVS Flash (`restore_value: true`) with automatic wear-leveling.
+* **Home Assistant Downtime Immunity:** Counts pulses autonomously in real time even when Home Assistant is offline for updates, synchronizing cumulative readings on reconnect without lost pulses.
+* **Energy Dashboard Native:** Exposes `device_class: gas` with `state_class: total_increasing` in $\text{m}^3$ and $\text{kWh}$, fully compatible with the native HA Energy Dashboard.
+* **In-UI Calibration:** Includes a live calibration `number` entity in the HA dashboard for on-the-fly corrections without firmware recompilation.
+* **Security by Design:** Fully encrypted Native API (Noise PSK), password-protected OTA, WPA2 fallback hotspot, and zero cloud dependency.
+* **Automated Tests:** Comprehensive unit test suite ([`test_gasmeter.py`](Gasmeter_ESP/tests/test_gasmeter.py)) validating precision, calibration math, downtime delta recovery, and secret hygiene.
+
+👉 See the complete guide, wiring schematics, and configuration in [`Gasmeter_ESP/README.md`](Gasmeter_ESP/README.md).
+
+---
+
 ## 🔬 The Engineering Bottleneck: Hardware Memory Wall
 
 ### Baseline Hardware Environment

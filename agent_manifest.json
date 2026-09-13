@@ -91,6 +91,14 @@
       "description": "Secondary 24GB GPU + 1600W Titanium PSU for hosting local 70B models and full telemetry analysis."
     }
   ],
+  "showcase_projects": [
+    {
+      "name": "Outage-Resilient Smart Gas Meter Tracker (ESP32 + ESPHome)",
+      "directory": "Gasmeter_ESP",
+      "category": "Smart-Home Hardware & Telemetry",
+      "architecture": "ESP32 + Optical/Magnetic Sensor + NVS Flash Persistence"
+    }
+  ],
   "links": {
     "repository": "https://github.com/TheKlython/sad-sausage",
     "donations_ledger": "DONATIONS.md"

@@ -24,3 +24,14 @@ ENV/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# ESPHome & Embedded Hardware Projects
+.esphome/
+secrets.yaml
+*.local.yaml
+.pio/
+.pioenvs/
+*.bin
+*.elf
+*.hex
+

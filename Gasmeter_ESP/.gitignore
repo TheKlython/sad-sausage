@@ -1,0 +1,16 @@
+# Gitignore settings for ESPHome & Microcontroller firmware
+/.esphome/
+/secrets.yaml
+*.local.yaml
+
+# Build & PlatformIO artifacts
+.pio/
+.pioenvs/
+*.bin
+*.elf
+*.hex
+
+# Testing & Python cache
+.pytest_cache/
+__pycache__/
+

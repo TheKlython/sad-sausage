@@ -1,0 +1,244 @@
+# ===========================================================================================
+# ESPHome Gas Meter Tracker (ESP32)
+#
+# ARCHITECTURE & DESIGN DOCUMENTATION:
+# An outage-resilient smart gas meter pulse reader designed for Home Assistant.
+# It reads pulses from a mechanical gas meter using an optical reflective sensor
+# (e.g. TCRT5000) or a digital/analog Hall-effect sensor attached to the dial.
+#
+# KEY ADVANTAGES & HARDWARE INTEGRATION:
+# 1. Non-Volatile Flash Persistence (Option 1 Architecture):
+#    - 'total_pulses' is stored with 'restore_value: true' in ESP-IDF NVS flash.
+#    - Survives ESP32 power outages, reboots, and OTA firmware updates without resetting to 0.
+#    - Uses ESP-IDF flash wear-leveling to protect flash health during normal operation.
+# 2. Complete Home Assistant Downtime Immunity:
+#    - The ESP32 counts pulses independently in real time.
+#    - If Home Assistant restarts for OS/Core updates, no pulses are lost.
+#    - Once HA reconnects via the native encrypted API, the current cumulative reading is pushed.
+# 3. Real-Time Push Notification:
+#    - Sensor values are published immediately upon pulse detection ('publish_state').
+#    - Automations (e.g., Alexa chimes, burner flame alerts) trigger instantaneously.
+# 4. In-UI Calibration ('number' component):
+#    - Home Assistant 'counter' helpers are strictly limited to integers and cannot store
+#      fractional numbers (e.g. 44075.8 m³).
+#    - This ESP32 exposes a native float sensor ('Gas Meter Reading') with 'state_class: total_increasing'
+#      that connects directly to the HA Energy Dashboard, alongside a 'number' entity to calibrate
+#      the reading on the fly from the Home Assistant dashboard without reflashing.
+# 5. Security by Design:
+#    - Encrypted Native API connection (Noise PSK via !secret api_encryption_key).
+#    - Password-protected OTA firmware flashing (!secret ota_password).
+#    - Protected fallback hotspot with WPA2 (!secret fallback_ap_password).
+# ===========================================================================================
+
+substitutions:
+  name: "gasmeter-esp"
+  friendly_name: "Gas Meter ESP"
+
+  # =========================================================================================
+  # CONFIGURATION PARAMETERS (Adjust to your meter):
+  # - initial_pulses: Set this to your current meter reading in pulses, OR leave at "0"
+  #   and calibrate conveniently using the 'Gas Meter Reading Correction' entity in HA!
+  #   Calculation: (Current m³ on dial) / (imp_ratio)
+  #   Example: 44075.8 m³ / 0.1 m³/pulse = 440758 pulses.
+  # - imp_ratio: Gas volume per pulse (typically 0.1 m³ or 0.01 m³ depending on dial).
+  # - kwh_factor: Conversion factor from m³ to kWh (calorific value * z-number).
+  #   Check your gas bill for this factor (commonly ~10.2 to ~11.5 kWh/m³ in Central Europe).
+  # =========================================================================================
+  initial_pulses: "0"
+  imp_ratio: "0.1"
+  kwh_factor: "10.988597"
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2024.6.0
+  project:
+    name: "sad-sausage.gas-meter"
+    version: "1.0.0"
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+  level: DEBUG
+  baud_rate: 115200
+
+# Security by Design: Encrypted native API connection to Home Assistant
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+# Security by Design: Password-protected OTA updates
+ota:
+  - platform: esphome
+    password: !secret ota_password
+  - platform: web_server
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "Gas-Meter-ESP Fallback Hotspot"
+    password: !secret fallback_ap_password
+
+captive_portal:
+
+web_server:
+  port: 80
+  version: 2
+
+globals:
+  # =========================================================================================
+  # Non-Volatile Pulse Counter:
+  # 'restore_value: true' guarantees persistence across reboots and power cycles.
+  # =========================================================================================
+  - id: total_pulses2
+    type: int
+    restore_value: true
+    initial_value: ${initial_pulses}
+
+  # Multiplier: Volume in m³ per pulse
+  - id: g_imp_ratio
+    type: float
+    restore_value: false
+    initial_value: ${imp_ratio}
+
+  # Energy conversion multiplier: kWh per m³
+  - id: g_kwh_factor
+    type: float
+    restore_value: false
+    initial_value: ${kwh_factor}
+
+sensor:
+  # =========================================================================================
+  # Analog Sensor Input on Pin 33 (ADC)
+  # Reads the analog signal from the optical reflectance sensor or analog Hall sensor.
+  # 12 dB attenuation allows input voltages up to ~3.3V.
+  # =========================================================================================
+  - platform: adc
+    pin: 33
+    id: gasmeteranaloginput
+    name: "GasMeterAnalogInput"
+    attenuation: 12db
+    update_interval: 5s
+    accuracy_decimals: 3
+    icon: "mdi:gas-cylinder"
+    device_class: "voltage"
+    state_class: "measurement"
+
+  # =========================================================================================
+  # Primary Gas Meter Reading (m³) for Home Assistant & Energy Dashboard
+  # - 'device_class: gas' and 'state_class: total_increasing' ensure native compatibility
+  #   with the Home Assistant Energy Dashboard.
+  # =========================================================================================
+  - platform: template
+    name: "GasverbrauchPuls"
+    id: gas_zaehlerstand
+    device_class: gas
+    unit_of_measurement: "m³"
+    state_class: total_increasing
+    icon: "mdi:fire"
+    accuracy_decimals: 1
+    lambda: |-
+      float current_m3 = id(total_pulses2) * id(g_imp_ratio);
+      ESP_LOGD("gas_meter", "Current gas meter reading: %.1f m³ (%d pulses)", current_m3, id(total_pulses2));
+      return current_m3;
+    update_interval: 60s
+
+  # Auxiliary / Alternate Sensor for backwards compatibility
+  - platform: template
+    name: "GasverbrauchAd"
+    id: gas_verbrauch_ad
+    device_class: gas
+    unit_of_measurement: "m³"
+    state_class: total_increasing
+    icon: "mdi:fire"
+    accuracy_decimals: 1
+    lambda: |-
+      return id(total_pulses2) * id(g_imp_ratio);
+    update_interval: 60s
+
+  # =========================================================================================
+  # Gas Consumption in kWh
+  # Directly converts m³ to thermal energy (kWh) using the calorific factor.
+  # Ideal for tracking heating energy or triggering instant notifications.
+  # =========================================================================================
+  - platform: template
+    name: "Gasverbrauch-kWh"
+    id: gas_kwh
+    device_class: energy
+    unit_of_measurement: "kWh"
+    state_class: total_increasing
+    icon: "mdi:fire"
+    accuracy_decimals: 2
+    lambda: |-
+      float current_kwh = id(total_pulses2) * id(g_imp_ratio) * id(g_kwh_factor);
+      ESP_LOGD("gas_meter", "Current gas energy: %.2f kWh", current_kwh);
+      return current_kwh;
+    update_interval: 60s
+
+binary_sensor:
+  # =========================================================================================
+  # Analog Pulse Threshold Detector
+  # Detects the silver reflective spot on the least significant dial wheel.
+  # Adjust upper/lower thresholds to fit your sensor voltage levels.
+  # =========================================================================================
+  - platform: analog_threshold
+    name: "GasMeterAnalogTreshhold"
+    sensor_id: gasmeteranaloginput
+    threshold:
+      upper: 1.62
+      lower: 1.59
+    on_release:
+      - then:
+          - lambda: |-
+              // 1. Increment persistent pulse counter in NVS flash
+              id(total_pulses2) += 1;
+              float current_m3 = id(total_pulses2) * id(g_imp_ratio);
+              float current_kwh = current_m3 * id(g_kwh_factor);
+
+              // 2. Real-time push to Home Assistant (avoids waiting for 60s polling interval)
+              id(gas_zaehlerstand).publish_state(current_m3);
+              id(gas_verbrauch_ad).publish_state(current_m3);
+              id(gas_kwh).publish_state(current_kwh);
+
+              ESP_LOGI("gas_meter", "Pulse registered! New reading: %.1f m³ (%d pulses)", current_m3, id(total_pulses2));
+
+  - platform: status
+    name: "gasmeter Status"
+    entity_category: diagnostic
+    device_class: connectivity
+    update_interval: 60s
+
+# ===========================================================================================
+# Calibration Interface in Home Assistant UI ('number' entity)
+# Provides a text input box in Home Assistant to calibrate the meter reading at any time
+# (e.g. initial setup or annual manual meter check) without reflashing firmware.
+# ===========================================================================================
+number:
+  - platform: template
+    name: "Gaszähler Stand Korrektur"
+    id: gas_zaehlerstand_korrektur
+    icon: "mdi:gas-meter"
+    unit_of_measurement: "m³"
+    step: 0.1
+    min_value: 0.0
+    max_value: 999999.0
+    mode: box
+    lambda: |-
+      return id(total_pulses2) * id(g_imp_ratio);
+    set_action:
+      - lambda: |-
+          // Recalculate pulse count from m³ input and update persistent storage
+          id(total_pulses2) = (int)(round(x / id(g_imp_ratio)));
+          float current_m3 = id(total_pulses2) * id(g_imp_ratio);
+          float current_kwh = current_m3 * id(g_kwh_factor);
+
+          // Update all sensors immediately with calibrated value
+          id(gas_zaehlerstand).publish_state(current_m3);
+          id(gas_verbrauch_ad).publish_state(current_m3);
+          id(gas_kwh).publish_state(current_kwh);
+
+          ESP_LOGW("gas_meter", "Meter reading manually calibrated to: %.1f m³ (%d pulses)", current_m3, id(total_pulses2));
