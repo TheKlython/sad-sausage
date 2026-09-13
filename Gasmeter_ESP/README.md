@@ -233,6 +233,10 @@ python -m pytest tests/test_gasmeter.py -v
 
 ## 📜 License & Credits
 
-Distributed under the MIT License as part of the [Sad Sausage (SS-Ops)](../README.md) open-source Edge AI & Smart-Home ecosystem.
+Distributed under the MIT License as part of the [Sad Sausage (SS-Ops)](../README.md) open-source Edge AI & Smart-Home ecosystem.  
 Created with ❤️ for the Home Assistant & ESPHome DIY community.
+
+### 💡 Inspiration & Prior Art
+* **Inspired by:** [König Haunstetten: Gasverbrauchs-Sensor umgebaut (2024-10-14)](https://koenig-haunstetten.de/2024/10/14/gasverbrauchs-sensor-umgebaut/) – Special thanks for the foundational inspiration and insights into physical sensor mounting and Hall sensor experimentation!
+
 Feel free to share, fork, and contribute!

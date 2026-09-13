@@ -7,6 +7,8 @@
 # (detecting the magnetic deflection of the rotating dial wheel) or an optical reflective sensor
 # (e.g. TCRT5000) attached to the meter window.
 #
+# Inspired by: https://koenig-haunstetten.de/2024/10/14/gasverbrauchs-sensor-umgebaut/
+#
 # KEY ADVANTAGES & HARDWARE INTEGRATION:
 # 1. Non-Volatile Flash Persistence (Option 1 Architecture):
 #    - 'total_pulses' is stored with 'restore_value: true' in ESP-IDF NVS flash.

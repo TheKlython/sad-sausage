@@ -75,3 +75,10 @@ Dieses Dokument dient als Wissensdatenbank und Leitfaden für zukünftige Iterat
 - **API Encryption:** Die Verbindung zu Home Assistant erfolgt verschlüsselt über Noise PSK (`key: !secret api_encryption_key` aus `secrets.yaml`).
 - **OTA Authentifizierung:** Over-the-Air Firmware-Updates sind durch ein Passwort abgesichert.
 - **Fallback AP:** Für den Verbindungsverlust ist ein WPA2-gesicherter Notfall-Hotspot eingerichtet.
+
+---
+
+## 7. Inspiration & Referenzen
+
+- **Inspiration & Vorarbeit:** [König Haunstetten: Gasverbrauchs-Sensor umgebaut (2024-10-14)](https://koenig-haunstetten.de/2024/10/14/gasverbrauchs-sensor-umgebaut/) – Wertvolle Hinweise zum mechanischen Aufbau und zur Hall-Sensor-Abtastung.
+
