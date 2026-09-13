@@ -1,4 +1,4 @@
-name: Verify Sad Sausage Integrity
+name: Verify Sad Sausage Integrity & Security
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: Unit & Manifest Tests (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,6 +23,30 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Run Manifest & MCP Unit Tests
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pyyaml
+
+      - name: Run Core Manifest & MCP Unit Tests
         run: |
           python -m unittest test_validate_manifest.py test_sad_sausage_mcp.py -v
+
+      - name: Run Gasmeter ESP Tests & Secret Hygiene
+        run: |
+          python -m pytest Gasmeter_ESP/tests/test_gasmeter.py -v
+
+  secret-scan:
+    name: Secret & Credential Leak Scan (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks Security Scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
