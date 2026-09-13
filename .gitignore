@@ -35,3 +35,7 @@ secrets.yaml
 *.elf
 *.hex
 
+# Static Site Generator & GitHub Pages build artifacts
+_site/
+.jekyll-cache/
+
