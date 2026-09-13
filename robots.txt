@@ -25,3 +25,6 @@ Allow: /
 # Full LLM Context: /llms-full.txt
 # Agent Manifest: /agent_manifest.json
 # Well-Known Agent Info: /.well-known/ai-agent.json
+
+# Canonical Sitemap for Search Engines
+Sitemap: https://theklython.github.io/sad-sausage/sitemap.xml
