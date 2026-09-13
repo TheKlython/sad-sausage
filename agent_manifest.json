@@ -97,6 +97,12 @@
       "directory": "Gasmeter_ESP",
       "category": "Smart-Home Hardware & Telemetry",
       "architecture": "ESP32 + OH49E Linear Hall Sensor / Optical Sensor + NVS Flash Persistence"
+    },
+    {
+      "name": "Smart Optoma Laser Projector Controller (ESP32 + RS232 + ESPHome)",
+      "directory": "Optoma UHZ ESP remote",
+      "category": "Home Cinema Hardware & Automation",
+      "architecture": "ESP32 + MAX3232 RS232 Serial Bridge + ESPHome State Machine"
     }
   ],
   "links": {

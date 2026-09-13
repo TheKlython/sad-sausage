@@ -36,6 +36,10 @@ jobs:
         run: |
           python -m pytest Gasmeter_ESP/tests/test_gasmeter.py -v
 
+      - name: Run Optoma ESP Remote Tests & Secret Hygiene
+        run: |
+          python -m pytest "Optoma UHZ ESP remote/tests/test_optoma_parser.py" -v
+
   secret-scan:
     name: Secret & Credential Leak Scan (Gitleaks)
     runs-on: ubuntu-latest

@@ -86,6 +86,17 @@ An enterprise-grade, outage-resilient hardware pulse counter for mechanical diap
 
 👉 See the complete guide, wiring schematics, and configuration in [`Gasmeter_ESP/README.md`](Gasmeter_ESP/README.md).
 
+### 🎬 [Smart Optoma Laser Projector Controller (ESP32 + RS232 + ESPHome)](Optoma%20UHZ%20ESP%20remote/README.md)
+An enterprise-grade bi-directional RS232 serial bridge and smart controller for **Optoma home cinema projectors** (tested on Optoma UHZ2000, UHZ4000, UHD series, and compatible models) using ESPHome and an ESP32:
+* **True Power & State Machine:** Reliable multi-phase state tracking (`Standby`, `Warming`, `On`, `Cooling`) replacing slow IR blasters and unreliable HDMI-CEC.
+* **Hardware Fault Monitoring:** Catches asynchronous hardware error codes pushed over RS232 (`Overheat`, `Fan Locked`, `Laser Error`, `Thermal Error`).
+* **Complete Home Assistant Control:** Exposes power, input source selection (HDMI 1/2/3), projection orientation, brightness/contrast sliders, HDR mode, sleep timers, and full D-Pad navigation.
+* **Smart Polling Architecture:** Implements an internal query state machine (`current_query`) to decode generic responses and caches static telemetry (serial number, firmware version) to prevent UART bus saturation.
+* **Security by Design:** Fully encrypted Native API (Noise PSK), password-protected OTA, authenticated web server, and WPA2 fallback hotspot.
+* **Automated Tests:** Comprehensive unit test suite ([`test_optoma_parser.py`](Optoma%20UHZ%20ESP%20remote/tests/test_optoma_parser.py)) validating status packet unpacking, projection modes, command formatting, and secret hygiene.
+
+👉 See the complete guide, wiring schematics, and configuration in [`Optoma UHZ ESP remote/README.md`](Optoma%20UHZ%20ESP%20remote/README.md).
+
 ---
 
 ## 🔬 The Engineering Bottleneck: Hardware Memory Wall
