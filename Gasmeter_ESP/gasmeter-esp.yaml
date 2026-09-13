@@ -3,8 +3,9 @@
 #
 # ARCHITECTURE & DESIGN DOCUMENTATION:
 # An outage-resilient smart gas meter pulse reader designed for Home Assistant.
-# It reads pulses from a mechanical gas meter using an optical reflective sensor
-# (e.g. TCRT5000) or a digital/analog Hall-effect sensor attached to the dial.
+# It reads pulses from a mechanical gas meter using an OH49E linear Hall-effect sensor
+# (detecting the magnetic deflection of the rotating dial wheel) or an optical reflective sensor
+# (e.g. TCRT5000) attached to the meter window.
 #
 # KEY ADVANTAGES & HARDWARE INTEGRATION:
 # 1. Non-Volatile Flash Persistence (Option 1 Architecture):
@@ -181,9 +182,18 @@ sensor:
 
 binary_sensor:
   # =========================================================================================
-  # Analog Pulse Threshold Detector
-  # Detects the silver reflective spot on the least significant dial wheel.
-  # Adjust upper/lower thresholds to fit your sensor voltage levels.
+  # Analog Pulse Threshold Detector (Calibrated for OH49E Linear Hall Sensor)
+  # Detects the magnetic field deflection when the dial wheel magnet passes the sensor.
+  #
+  # SENSOR CALIBRATION NOTE (IMPORTANT FOR DIY BUILDERS):
+  # The default thresholds (upper: 1.62V, lower: 1.59V) are calibrated for the reference
+  # OH49E installation. Because physical mounting distance, sensor alignment, and dial
+  # magnet strength vary by meter model, you must calibrate these two values:
+  # 1. Observe 'GasMeterAnalogInput' in ESPHome web server, logs, or Home Assistant.
+  # 2. Note the baseline idle voltage (e.g. ~1.65V when no magnet is near the sensor).
+  # 3. Note the deflection voltage when the magnet passes the sensor (e.g. dipping to ~1.55V).
+  # 4. Set 'upper' and 'lower' to form a clean hysteresis window (e.g. 1.62 / 1.59)
+  #    between the idle state and the deflection peak to debounce reliably without ghost pulses.
   # =========================================================================================
   - platform: analog_threshold
     name: "GasMeterAnalogTreshhold"

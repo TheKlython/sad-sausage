@@ -6,9 +6,10 @@ Dieses Dokument dient als Wissensdatenbank und Leitfaden für zukünftige Iterat
 
 ## 1. Hardware & Pulserfassung
 
-- **Messprinzip:** Ein optischer Reflexkoppler (oder Hallsensor) tastet die letzte Ziffernrolle des Gaszählers ab (z.B. Reflexspiegel bei der Ziffer 0).
-- **Pin 33 (ADC):** Der ESP32 misst über den ADC-Kanal das analoge Spannungssignal (`GasMeterAnalogInput`, 12dB Attenuation).
-- **Analog Threshold:** Der `binary_sensor` (`GasMeterAnalogTreshhold`) schaltet bei Über-/Unterschreiten des Schwellenbereichs (1.59V – 1.62V).
+- **Messprinzip:** Ein linearer Hall-Sensor (**OH49E**) tastet das Magnetfeld des in der letzten Ziffernrolle integrierten Magneten ab. Alternativ kann bei Zählern ohne Magnet ein optischer Reflexkoppler (TCRT5000) genutzt werden.
+- **Pin 33 (ADC):** Der ESP32 misst über den ADC1-Kanal das analoge Spannungssignal (`GasMeterAnalogInput`, 12dB Attenuation).
+- **Analog Threshold:** Der `binary_sensor` (`GasMeterAnalogTreshhold`) schaltet bei Durchlaufen des Schwellenfensters (`upper: 1.62V`, `lower: 1.59V`).
+- **Individuelle Kalibrierung:** Da Montageabstand, Gehäusedicke und Magnetfeldstärke variieren, müssen die Schwellwerte vor Ort per ESPHome-Log eingemessen werden (Ruhespannung vs. Auslenkungsspannung bei Magnetdurchgang).
 - **Inkrementierung:** Der Puls wird bei `on_release` gezählt (`id(total_pulses2) += 1;`).
 - **Wertigkeit:** $1\,\text{Puls} = 0{,}1\,\text{m}^3$ Gas (`imp_ratio: 0.1`).
 

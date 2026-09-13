@@ -96,7 +96,7 @@
       "name": "Outage-Resilient Smart Gas Meter Tracker (ESP32 + ESPHome)",
       "directory": "Gasmeter_ESP",
       "category": "Smart-Home Hardware & Telemetry",
-      "architecture": "ESP32 + Optical/Magnetic Sensor + NVS Flash Persistence"
+      "architecture": "ESP32 + OH49E Linear Hall Sensor / Optical Sensor + NVS Flash Persistence"
     }
   ],
   "links": {

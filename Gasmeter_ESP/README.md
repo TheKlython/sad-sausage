@@ -50,9 +50,10 @@ Built specifically to solve the common pitfalls of smart gas metering in **Home 
 
 ### Bill of Materials
 - **Microcontroller:** ESP32 development board (e.g. ESP32-WROOM-32 / NodeMCU ESP32)
-- **Pulse Sensor:** 
-  - **Option A (Optical):** TCRT5000 infrared reflective sensor module (recommended for dials with a reflective mirror on the '0' digit).
-  - **Option B (Magnetic):** Reed switch or analog Hall sensor (e.g. KY-024 / KY-035) for meters with an integrated magnet in the least significant dial wheel.
+- **Pulse Sensor (Reference Setup):** 
+  - **Primary / Reference Sensor:** **OH49E Linear Hall-Effect Sensor** (tested and highly reliable for gas meters with an integrated magnet in the rotating dial wheel; detects continuous micro-deflections in analog voltage).
+  - **Alternative (Optical):** TCRT5000 infrared reflective sensor module (for dials with a reflective mirror on the '0' digit).
+  - **Alternative (Digital Switch):** Reed contact or KY-024 / KY-035 Hall module.
 - **Power Supply:** 5V USB power supply (or rechargeable battery with UPS buffer).
 
 ### Pin Wiring
@@ -64,6 +65,45 @@ Built specifically to solve the common pitfalls of smart gas metering in **Home 
 | **AO / OUT** | **GPIO 33** | Analog Output connected to ESP32 ADC1 Channel 5 |
 
 > **Note on ADC Pin Choice:** On ESP32, ADC2 pins cannot be used reliably when Wi-Fi is active. **GPIO 33 belongs to ADC1**, which remains fully functional while Wi-Fi is connected.
+
+---
+
+### 📸 Reference Hardware Setup
+
+Below is the reference hardware installation of the **OH49E linear Hall sensor** mounted directly on the gas meter dial housing:
+
+![OH49E Gas Meter Setup](setup.jpg)
+
+*(Place your own installation photo as `setup.jpg` in this directory to showcase your setup).*
+
+---
+
+### 🎯 Calibrating Analog Voltage Thresholds (OH49E Hall Sensor)
+
+Because magnet strength, physical mounting distance, plastic housing thickness, and supply voltage vary between meter models, **the threshold voltages in [`gasmeter-esp.yaml`](gasmeter-esp.yaml) must be calibrated to your installation**:
+
+```yaml
+binary_sensor:
+  - platform: analog_threshold
+    name: "GasMeterAnalogTreshhold"
+    sensor_id: gasmeteranaloginput
+    threshold:
+      upper: 1.62   # <--- Calibrate to your idle baseline
+      lower: 1.59   # <--- Calibrate to your deflection trigger
+```
+
+#### Step-by-Step Calibration:
+1. **Flash firmware and monitor sensor voltage:**  
+   Open the ESPHome web dashboard, Home Assistant developer tools, or the ESPHome CLI log viewer:
+   ```bash
+   esphome logs gasmeter-esp.yaml
+   ```
+2. **Determine Idle Baseline Voltage ($V_{\text{idle}}$):**  
+   While no gas is flowing and the dial magnet is away from the sensor, note the reading of `GasMeterAnalogInput` (e.g. `~1.65V`).
+3. **Determine Deflection Voltage ($V_{\text{pulse}}$):**  
+   Turn on a gas burner or wait for gas flow. As the magnet passes the OH49E sensor, the voltage will noticeably swing (e.g. dipping to `~1.55V` or rising depending on magnetic pole orientation).
+4. **Set Hysteresis Thresholds (Schmitt Trigger):**  
+   Configure `upper` and `lower` to sit cleanly between your idle baseline and the deflection peak. A typical hysteresis band of **20–30 mV** ensures instant, bounce-free triggering without missing pulses or registering false counts.
 
 ---
 
