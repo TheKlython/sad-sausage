@@ -88,8 +88,8 @@ binary_sensor:
     name: "GasMeterAnalogTreshhold"
     sensor_id: gasmeteranaloginput
     threshold:
-      upper: 1.62   # <--- Calibrate to your idle baseline
-      lower: 1.59   # <--- Calibrate to your deflection trigger
+      upper: 1.625  # <--- Calibrate to your idle baseline (e.g. 1.625V)
+      lower: 1.608  # <--- Calibrate to your deflection trigger (e.g. 1.608V)
 ```
 
 #### Step-by-Step Calibration:
