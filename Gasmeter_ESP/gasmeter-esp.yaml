@@ -125,7 +125,7 @@ sensor:
     id: gasmeteranaloginput
     name: "GasMeterAnalogInput"
     attenuation: 12db
-    update_interval: 5s
+    update_interval: 1s
     accuracy_decimals: 3
     icon: "mdi:gas-cylinder"
     device_class: "voltage"
@@ -201,8 +201,8 @@ binary_sensor:
     name: "GasMeterAnalogTreshhold"
     sensor_id: gasmeteranaloginput
     threshold:
-      upper: 1.62
-      lower: 1.59
+      upper: 1.625
+      lower: 1.608
     on_release:
       - then:
           - lambda: |-
